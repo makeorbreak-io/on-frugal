@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +28,7 @@ import com.hackoholics.onfrugal.main.domain.executor.impl.ThreadExecutor;
 import com.hackoholics.onfrugal.main.domain.interactors.SearchInteractorImpl;
 import com.hackoholics.onfrugal.main.domain.model.Search;
 import com.hackoholics.onfrugal.main.presentation.map.FindOfferMapFragment;
+import com.hackoholics.onfrugal.main.presentation.map.TabMapFragment;
 import com.hackoholics.onfrugal.main.presentation.searchList.ParentRow;
 import com.hackoholics.onfrugal.main.presentation.searchList.SearchExpandableListAdapter;
 import com.hackoholics.onfrugal.main.threading.MainThreadImpl;
@@ -92,6 +95,34 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
         });
 
         return mRootView;
+    }
+
+    private class PagerAdapter extends FragmentStatePagerAdapter {
+        private int mNumOfTabs;
+
+        PagerAdapter(FragmentManager fm, int NumOfTabs) {
+            super(fm);
+            this.mNumOfTabs = NumOfTabs;
+        }
+
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch (position) {
+                case 0:
+                    return new FindOfferListTabFragment();
+                case 1:
+                    return new TabMapFragment();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return mNumOfTabs;
+        }
     }
 
 
