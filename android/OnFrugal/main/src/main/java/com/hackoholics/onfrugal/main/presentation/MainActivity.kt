@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.hackoholics.onfrugal.main.R
 import com.hackoholics.onfrugal.main.domain.services.LocationService
-import com.hackoholics.onfrugal.main.presentation.map.MainMapFragment
+import com.hackoholics.onfrugal.main.presentation.FindOfferMainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         // define your fragments here
         // TODO Passar este fragment para filho de outro fragment que troca entre o mapa e a listagem
-        val findOffers = MainMapFragment()
+        val findOffers = FindOfferMainFragment()
 
 //        val search= new SearchFragment();
 //        val account = new AccountFragment();

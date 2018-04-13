@@ -1,9 +1,11 @@
-package com.hackoholics.onfrugal.main.presentation.map;
+package com.hackoholics.onfrugal.main.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,6 +25,7 @@ import com.hackoholics.onfrugal.main.data.OnlineSearchRepository;
 import com.hackoholics.onfrugal.main.domain.executor.impl.ThreadExecutor;
 import com.hackoholics.onfrugal.main.domain.interactors.SearchInteractorImpl;
 import com.hackoholics.onfrugal.main.domain.model.Search;
+import com.hackoholics.onfrugal.main.presentation.map.FindOfferMapFragment;
 import com.hackoholics.onfrugal.main.presentation.searchList.ParentRow;
 import com.hackoholics.onfrugal.main.presentation.searchList.SearchExpandableListAdapter;
 import com.hackoholics.onfrugal.main.threading.MainThreadImpl;
@@ -30,9 +33,9 @@ import com.hackoholics.onfrugal.main.threading.MainThreadImpl;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainMapFragment extends Fragment implements OnSearchViewListener {
+public class FindOfferMainFragment extends Fragment implements OnSearchViewListener {
 
-    private static final String TAG = MainMapFragment.class.getSimpleName();
+    private static final String TAG = FindOfferMainFragment.class.getSimpleName();
 
     private BaseMaterialSearchView mSearchView;
     private SearchExpandableListAdapter mSearchListAdapter;
@@ -61,8 +64,36 @@ public class MainMapFragment extends Fragment implements OnSearchViewListener {
         displaySearchResults(mRootView);
         expandCategories();
 
+        TabLayout tabLayout = mRootView.findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("List"));
+        tabLayout.addTab(tabLayout.newTab().setText("Map"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = mRootView.findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         return mRootView;
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -70,6 +101,8 @@ public class MainMapFragment extends Fragment implements OnSearchViewListener {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item = menu.findItem(R.id.action_search);
         mSearchView.setMenuItem(item);
+
+
 
     }
 
