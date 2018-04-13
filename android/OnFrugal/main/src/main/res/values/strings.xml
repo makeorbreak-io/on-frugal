@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="title_home">Home</string>
+    <string name="title_my_offers">My offers</string>
+    <string name="title_profile">Profile</string>
+    <string name="navigation_find_offers">Find Offers</string>
+    <string name="navigation_offers">My Offers</string>
+    <string name="navigation_profile">Profile</string>
+    <string name="error_connection">No internet connection</string>
+    <string name="error_fetch">Error fetching data</string>
+</resources>
