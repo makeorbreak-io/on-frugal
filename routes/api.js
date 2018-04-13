@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+
+router.get('/', (req, res) => {
+
+});
+
 // search by location
 
-// search by user name
-
-// search by phone number
-
-// search by email
+// search by user namec
 
 // search by event name
 
