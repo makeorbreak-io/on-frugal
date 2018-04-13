@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <fragment
-        android:name="com.hackoholics.onfrugal.main.presentation.FindOfferMapFragment"
+        android:name="com.hackoholics.onfrugal.main.presentation.map.FindOfferMapFragment"
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

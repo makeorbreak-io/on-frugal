@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import com.hackoholics.onfrugal.R.id.message
 import com.hackoholics.onfrugal.main.R
+import com.hackoholics.onfrugal.main.domain.services.LocationService
+import com.hackoholics.onfrugal.main.presentation.map.MainMapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,R.string.title_my_offers, Toast.LENGTH_SHORT).show()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_profile-> {
+            R.id.navigation_account-> {
                 Toast.makeText(this,R.string.title_profile, Toast.LENGTH_SHORT).show()
                 return@OnNavigationItemSelectedListener true
             }
@@ -36,22 +37,24 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
 
-             // starting Location Service Manager for receiving location data
-//        var intent = Intent(MainActivity.this, LocationService.class);
-        startService(intent);
+         // starting Location Service Manager for receiving location data
+        val intent = Intent(this@MainActivity, LocationService::class.java)
+        startService(intent)
 
-        val fragmentManager = getSupportFragmentManager();
+        val fragmentManager = getSupportFragmentManager()
 
         // define your fragments here
-//        val findOffers = MainMapFragment();
-//        val search = new SearchFragment();
+        // TODO Passar este fragment para filho de outro fragment que troca entre o mapa e a listagem
+        val findOffers = MainMapFragment()
+
+//        val search= new SearchFragment();
 //        val account = new AccountFragment();
 
 //        BottomNavigationView bottomNavigationView = (BottomNavigationView)
 //                    findViewById(R.id.bottom_navigation);
 
 
-        var fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.flContainer, map).commit();
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.flContainer, findOffers).commit()
     }
 }

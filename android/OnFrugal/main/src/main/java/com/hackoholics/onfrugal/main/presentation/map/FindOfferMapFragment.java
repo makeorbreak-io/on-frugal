@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation;
+package com.hackoholics.onfrugal.main.presentation.map;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.hackoholics.onfrugal.main.domain.model.Offer;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FindOfferMapFragment extends LocationBasedMapFragment implements
         GoogleMap.OnCameraMoveListener,
@@ -36,7 +37,7 @@ public class FindOfferMapFragment extends LocationBasedMapFragment implements
         getMapAsync(this);
 
         try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
+            MapsInitializer.initialize(Objects.requireNonNull(getActivity()).getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }

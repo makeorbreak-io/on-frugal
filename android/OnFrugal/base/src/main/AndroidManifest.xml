@@ -12,6 +12,11 @@
         <meta-data
             android:name="aia-compat-api-min-version"
             android:value="1" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA4mUQKz-KsQ_Lw2MqOBABNwdXh86BKc6U"/>
+
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation;
+package com.hackoholics.onfrugal.main.presentation.map;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +39,7 @@ public abstract class MapFragment extends SupportMapFragment implements OnMapRea
 
         frameLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
+        assert layout != null;
         ((ViewGroup) layout).addView(frameLayout,
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
