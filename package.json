@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "mkdir -p ./data/db",
     "start": "node ./bin/www",
     "debug": "node --inspect ./bin/www",
-    "lint": "eslint '**/*.js' --fix"
+    "lint": "eslint '**/*.js' --fix",
+    "database": "mongod --dbpath=./data/db"
   },
   "dependencies": {
     "body-parser": "^1.16.1",
