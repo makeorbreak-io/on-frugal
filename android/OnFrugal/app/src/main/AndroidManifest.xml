@@ -1,5 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.makeorbreak.hackohollics.onfrugal">
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -8,15 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="aia-compat-api-min-version"
             android:value="1" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyA4mUQKz-KsQ_Lw2MqOBABNwdXh86BKc6U"/>
-
+            android:value="AIzaSyA4mUQKz-KsQ_Lw2MqOBABNwdXh86BKc6U" />
 
         <activity
             android:name=".presentation.MainActivity"
@@ -43,5 +45,10 @@
         <service
             android:name="domain.services.LocationService"
             android:enabled="true" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"></activity>
     </application>
+
 </manifest>
