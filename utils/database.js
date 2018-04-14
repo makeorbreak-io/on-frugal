@@ -34,7 +34,7 @@ function createCollections() {
 
 function search(searchQuery) {
 
-}   
+}
 
 // @TODO need to check with duarte if he's sending all the json or is only sending a specific field
 function editOffer() {
