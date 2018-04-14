@@ -67,7 +67,7 @@ router.post('/register', (req, res) => {
     res.sendStatus(201);
 });
 // edit profile
-router.post('/update', (req, res) => {
+router.post('/editProfile', (req, res) => {
     // @TODO need to check with duarte if he's sending all the json or is only sending a specific field
     if (req.body.name.trim() === '') {
         res.status(405).send('Name not allowed');
