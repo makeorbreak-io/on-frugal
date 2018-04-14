@@ -21,7 +21,7 @@ class AccountFragment : Fragment() {
 
         v.findViewById<FloatingActionButton>(R.id.fab)
             .setOnClickListener { view ->
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
             }
         return v
