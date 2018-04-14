@@ -103,11 +103,11 @@ function createOffer(offer) {
 
 }
 
-function addUserToEvent(user, idOffer) {
+function addUserToEvent(idUser, idOffer) {
     return new Promise((resolve, reject) => {
         db.collection('offer').findAndModifyCallback({
             query: {_id: idOffer},
-            update: {$push: {candidates: user.idFirebase}}
+            update: {$push: {candidates: idUser}}
         }, () => resolve())
     })
 }
