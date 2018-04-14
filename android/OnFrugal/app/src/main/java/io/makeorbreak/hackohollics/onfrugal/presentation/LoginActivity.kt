@@ -11,7 +11,6 @@ import android.content.CursorLoader
 import android.content.Loader
 import android.database.Cursor
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -23,6 +22,10 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.content.Intent
+import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.*
 import io.makeorbreak.hackohollics.onfrugal.R
 
 import kotlinx.android.synthetic.main.activity_login.*
@@ -31,25 +34,34 @@ import kotlinx.android.synthetic.main.activity_login.*
  * A login screen that offers login via email/password.
  */
 class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private var mAuthTask: UserLoginTask? = null
+
+    private var mAuth: FirebaseAuth? = null
+    private var updates: UserProfileChangeRequest? = null
+    private var phoneAutoCredential: PhoneAuthCredential? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        // Set up the login form.
-        populateAutoComplete()
-        password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                attemptLogin()
-                return@OnEditorActionListener true
-            }
-            false
-        })
-
-        email_sign_in_button.setOnClickListener { attemptLogin() }
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth!!.currentUser != null){ //If user is signed in
+            //  startActivity(Next Activity)
+            Toast.makeText(baseContext, mAuth!!.currentUser.toString(), Toast.LENGTH_LONG).show()
+            var intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        else {
+            // Set up the login form.
+            populateAutoComplete()
+            password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    attemptLogin()
+                    return@OnEditorActionListener true
+                }
+                false
+            })
+            setTitle("");
+            email_sign_in_button.setOnClickListener { attemptLogin() }
+        }
     }
 
     private fun populateAutoComplete() {
@@ -89,6 +101,23 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
     }
 
+    public fun openFormDetails(v: View) {
+        if (link_signup.text.equals("Already have an account? Click Here")) {
+            // close additional form label
+            textInputPhoneNumber.visibility = View.GONE
+            phoneNumber.visibility = View.GONE
+            textInputName.visibility = View.GONE
+            name.visibility = View.GONE
+            link_signup.text = "No account yet? Click Here"
+        } else {
+            // open additional form label
+            textInputPhoneNumber.visibility = View.VISIBLE
+            phoneNumber.visibility = View.VISIBLE
+            textInputName.visibility = View.VISIBLE
+            name.visibility = View.VISIBLE
+            link_signup.text = "Already have an account? Click Here"
+        }
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -96,9 +125,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * errors are presented and no actual login attempt is made.
      */
     private fun attemptLogin() {
-        if (mAuthTask != null) {
-            return
-        }
 
         // Reset errors.
         email.error = null
@@ -107,12 +133,15 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         // Store values at the time of the login attempt.
         val emailStr = email.text.toString()
         val passwordStr = password.text.toString()
+        val nameStr = name.text.toString()
+        val phoneStr = phoneNumber.text.toString()
 
         var cancel = false
         var focusView: View? = null
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
+        if (TextUtils.isEmpty(passwordStr) && passwordStr.length < 6) {
+            Toast.makeText(baseContext, passwordStr, Toast.LENGTH_LONG).show();
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -137,19 +166,19 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
-            mAuthTask!!.execute(null as Void?)
+            if (link_signup.text.equals("Already have an account? Click Here")) {
+                // register
+                register(emailStr, passwordStr, phoneStr, nameStr)
+            } else {
+                // login
+                login(emailStr, passwordStr)
+            }
         }
     }
 
     private fun isEmailValid(email: String): Boolean {
         //TODO: Replace this with your own logic
         return email.contains("@")
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
-        return password.length > 4
     }
 
     /**
@@ -228,56 +257,89 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         email.setAdapter(adapter)
     }
 
+    private fun login(emailStr: String, passwordStr: String) {
+        mAuth!!.signInWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
+            if(!task.isSuccessful){
+                try
+                {
+                    throw task.getException()!!;
+                }
+                // if user enters wrong email.
+                catch (invalidEmail: FirebaseAuthInvalidUserException)
+                {
+                    Toast.makeText(baseContext, "Invalid email", Toast.LENGTH_LONG).show()
+                    showProgress(false)
+                }
+                // if user enters wrong password.
+                catch (wrongPassword: FirebaseAuthInvalidCredentialsException)
+                {
+                    Toast.makeText(baseContext, "Wrong password", Toast.LENGTH_LONG).show()
+                    showProgress(false)
+                }
+                catch (e: Exception)
+                {
+                    Toast.makeText(baseContext, e.message, Toast.LENGTH_LONG).show()
+                    showProgress(false)
+                }
+            }else{
+                showProgress(false)
+                var intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(baseContext, "Hello " + mAuth!!.currentUser!!.displayName, Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun register(emailStr: String, passwordStr: String, phoneStr: String, nameStr: String) {
+        mAuth!!.createUserWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
+            if (!task.isSuccessful()) {
+                try
+                {
+                    throw task.getException()!!
+                }
+                // if user enters wrong email.
+                catch (weakPassword: FirebaseAuthWeakPasswordException)
+                {
+                    Toast.makeText(baseContext, "Weak password", Toast.LENGTH_LONG).show();
+                    showProgress(false)
+                }
+                // if user enters wrong password.
+                catch (malformedEmail: FirebaseAuthInvalidCredentialsException)
+                {
+                    Toast.makeText(baseContext, "Malformed Email", Toast.LENGTH_LONG).show()
+                    showProgress(false)
+                }
+                catch (existEmail: FirebaseAuthUserCollisionException)
+                {
+                    Toast.makeText(baseContext, "Email already exists", Toast.LENGTH_LONG).show()
+                    showProgress(false)
+                }
+                catch (e: Exception)
+                {
+                    Toast.makeText(baseContext, e.message, Toast.LENGTH_LONG).show()
+                    showProgress(false)
+                }
+            } else {
+                showProgress(false)
+
+                // mAuth!!.currentUser!!.updatePhoneNumber()
+                // phoneAutoCredential = PhoneAuthCredential()
+                updates = UserProfileChangeRequest.Builder().setDisplayName(nameStr).build()
+                mAuth!!.currentUser!!.updateProfile(updates!!).addOnCompleteListener(this, OnCompleteListener {
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(baseContext, "Hello " + mAuth!!.currentUser!!.displayName, Toast.LENGTH_LONG).show()
+                })
+            }
+        })
+    }
+
     object ProfileQuery {
         val PROJECTION = arrayOf(
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY)
         val ADDRESS = 0
         val IS_PRIMARY = 1
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
-
-        override fun doInBackground(vararg params: Void): Boolean? {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000)
-            } catch (e: InterruptedException) {
-                return false
-            }
-
-            return DUMMY_CREDENTIALS
-                    .map { it.split(":") }
-                    .firstOrNull { it[0] == mEmail }
-                    ?.let {
-                        // Account exists, return true if the password matches.
-                        it[1] == mPassword
-                    }
-                    ?: true
-        }
-
-        override fun onPostExecute(success: Boolean?) {
-            mAuthTask = null
-            showProgress(false)
-
-            if (success!!) {
-                finish()
-            } else {
-                password.error = getString(R.string.error_incorrect_password)
-                password.requestFocus()
-            }
-        }
-
-        override fun onCancelled() {
-            mAuthTask = null
-            showProgress(false)
-        }
     }
 
     companion object {

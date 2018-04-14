@@ -103,11 +103,16 @@
     <string name="about_us">About us</string>
     <string name="logout">Logout</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="contact_developer">Contact the developer</string>
+    <string name="about_email_label">Email me</string>
+    <string name="about_github_label">Follow this project on Github</string>
+    <string name="about_description">OnFrugal: Make Or Break project. An application developed for people that don\'t have enough people to join group discounts. You won\'t have to miss anything anymore. Even if you are alone or abroad. With your smartphone, you will be able to join and create events. Whenever you have a group discount, you just create an event and wait for people to join!</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_password">Password </string>
     <string name="action_sign_in">Sign in or register</string>
+    <string name="phone_number">Phone Number</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -116,4 +121,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="name">Name</string>
+    <string name="register_account">No account yet? Click Here</string>
 </resources>
