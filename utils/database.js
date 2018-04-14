@@ -108,13 +108,19 @@ function addUserToEvent(user, idOffer) {
     return new Promise((resolve, reject) => {
         db.collection('offer').findAndModifyCallback({
             query: {_id: idOffer},
-            update: {$push: {candidates: user}}
+            update: {$push: {candidates: user.idFirebase}}
         }, () => resolve())
     })
 }
 
 function allowUserToEvent(idUser, idOffer) {
     // call find and modify perhaps?
+    return new Promise((resolve, reject) => {
+        db.collection('offer').findAndModifyCallback({
+            query: {_id: idOffer},
+            update: {$push: {accepted: idUser}, $pull: {candidates: idUser}}
+        }, () => resolve())
+    })
 }
 
 // User Database API
