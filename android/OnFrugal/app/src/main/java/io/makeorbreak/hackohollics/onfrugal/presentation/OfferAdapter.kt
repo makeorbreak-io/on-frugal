@@ -48,11 +48,10 @@ class OfferAdapter (var offers: Array<Offer>): RecyclerView.Adapter<OfferAdapter
         val offer = offers[position]
 
         offerName.text = offer.name
-        hostName.text = offer.host.name
-        price.text = offer.price.toString()
+        hostName.text = hostName.text.toString() + offer.host.name
+        price.text = offer.price.toString() + "€"
         endDate.text = offer.endDate.toString()
 
         holder.offer = offer
     }
-
 }

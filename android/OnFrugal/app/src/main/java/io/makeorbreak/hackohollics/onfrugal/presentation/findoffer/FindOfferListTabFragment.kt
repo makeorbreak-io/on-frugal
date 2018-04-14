@@ -14,6 +14,7 @@ import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer
 import io.makeorbreak.hackohollics.onfrugal.domain.model.User
 import io.makeorbreak.hackohollics.onfrugal.presentation.OfferAdapter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FindOfferListTabFragment: Fragment() {
 
@@ -48,17 +49,30 @@ class FindOfferListTabFragment: Fragment() {
 
 
                 val list = ArrayList<Offer>()
-                val user = User("0","John Doe", "johndoe@gmail.com", "919000000")
+                val host = User("0","John Doe", "johndoe@gmail.com", "919000000")
+
+                val candidatesList = ArrayList<User>()
+
+                for(i in 0..20){
+                    candidatesList.add(User(i.toString(),
+                            "John Doe",
+                            "johndoe@gmail.com",
+                            "919000000"
+                            ))
+                }
+
 
                 for (i in 0..20){
 
                     @Suppress("DEPRECATION")
-                    list.add(Offer(i.toString(),
+                    val offer = Offer(i.toString(),
                             "Offer "+i,
-                            user,
+                            host,
                             getString(R.string.large_text),
                             Date(2018,11,i),
-                            "Avenida dos Aliados",5,9.30F))
+                            "Avenida dos Aliados",5,9.30F)
+                    offer.candidates = candidatesList
+                    list.add(offer)
                 }
 
                 updateOffers(list)
@@ -66,11 +80,11 @@ class FindOfferListTabFragment: Fragment() {
         })
     }
 
-    fun updateOffers(benchmarks :List<Offer>){
+    fun updateOffers(offers :List<Offer>){
 
         activity!!.runOnUiThread(object: Runnable {
             override fun run() {
-                mAdapter = OfferAdapter(benchmarks.asReversed().toTypedArray())
+                mAdapter = OfferAdapter(offers.toTypedArray())
                 mRecyclerView.adapter = mAdapter
             }
 

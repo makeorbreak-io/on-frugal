@@ -112,4 +112,5 @@
     <string name="default_pontuation_poi">Pontuation</string>
     <string name="candidates">Candidates</string>
     <string name="host_label">Host:</string>
+    <string name="placeholder_host">Host:</string>
 </resources>
