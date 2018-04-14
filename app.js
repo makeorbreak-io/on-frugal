@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 const utils = require('./utils/utils.js');
+const db = require('./utils/database.js');
 const api = require('./routes/api');
 const index = require('./routes/index');
 

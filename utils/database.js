@@ -1,9 +1,22 @@
-var MongoClient = require('mongodb').MongoClient
-    , assert = require('assert');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const url = 'mongodb://localhost:27017';
+var db = null;
 
-// Connection URL
-var url = 'mongodb://localhost:27017';
+// Returns a promise
+function connect() {
+    return MongoClient.connect(db.url, (err, dbArg) => {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        db = dbArg;
+    });
+}
 
+// Events Database API
+
+// User Database API
+
+/*
 // Use connect method to connect to the server
 MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
@@ -48,4 +61,8 @@ var findDocuments = function(db, callback) {
         console.log(docs)
         callback(docs);
     });
-}
+}*/
+
+module.exports = {
+    connect
+};
