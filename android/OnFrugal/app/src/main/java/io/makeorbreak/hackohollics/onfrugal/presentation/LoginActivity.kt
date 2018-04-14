@@ -42,11 +42,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance()
         if (mAuth!!.currentUser != null){ //If user is signed in
             //  startActivity(Next Activity)
             Toast.makeText(baseContext, mAuth!!.currentUser.toString(), Toast.LENGTH_LONG).show()
-            var intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         else {
@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 }
                 false
             })
-            setTitle("");
+            setTitle("")
             email_sign_in_button.setOnClickListener { attemptLogin() }
         }
     }
@@ -73,9 +73,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun mayRequestContacts(): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true
-        }
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true
         }
@@ -101,7 +98,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
     }
 
-    public fun openFormDetails(v: View) {
+    fun openFormDetails(v: View) {
         if (link_signup.text.equals("Already have an account? Click Here")) {
             // close additional form label
             textInputPhoneNumber.visibility = View.GONE
@@ -141,7 +138,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(passwordStr) && passwordStr.length < 6) {
-            Toast.makeText(baseContext, passwordStr, Toast.LENGTH_LONG).show();
+            Toast.makeText(baseContext, passwordStr, Toast.LENGTH_LONG).show()
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -186,37 +183,27 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+        val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
 
-            login_form.visibility = if (show) View.GONE else View.VISIBLE
-            login_form.animate()
-                    .setDuration(shortAnimTime)
-                    .alpha((if (show) 0 else 1).toFloat())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            login_form.visibility = if (show) View.GONE else View.VISIBLE
-                        }
-                    })
+        login_form.visibility = if (show) View.GONE else View.VISIBLE
+        login_form.animate()
+                .setDuration(shortAnimTime)
+                .alpha((if (show) 0 else 1).toFloat())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        login_form.visibility = if (show) View.GONE else View.VISIBLE
+                    }
+                })
 
-            login_progress.visibility = if (show) View.VISIBLE else View.GONE
-            login_progress.animate()
-                    .setDuration(shortAnimTime)
-                    .alpha((if (show) 1 else 0).toFloat())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            login_progress.visibility = if (show) View.VISIBLE else View.GONE
-                        }
-                    })
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            login_progress.visibility = if (show) View.VISIBLE else View.GONE
-            login_form.visibility = if (show) View.GONE else View.VISIBLE
-        }
+        login_progress.visibility = if (show) View.VISIBLE else View.GONE
+        login_progress.animate()
+                .setDuration(shortAnimTime)
+                .alpha((if (show) 1 else 0).toFloat())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        login_progress.visibility = if (show) View.VISIBLE else View.GONE
+                    }
+                })
     }
 
     override fun onCreateLoader(i: Int, bundle: Bundle?): Loader<Cursor> {
@@ -262,7 +249,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             if(!task.isSuccessful){
                 try
                 {
-                    throw task.getException()!!;
+                    throw task.getException()!!
                 }
                 // if user enters wrong email.
                 catch (invalidEmail: FirebaseAuthInvalidUserException)
@@ -283,7 +270,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 }
             }else{
                 showProgress(false)
-                var intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 Toast.makeText(baseContext, "Hello " + mAuth!!.currentUser!!.displayName, Toast.LENGTH_LONG).show()
             }
@@ -300,7 +287,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 // if user enters wrong email.
                 catch (weakPassword: FirebaseAuthWeakPasswordException)
                 {
-                    Toast.makeText(baseContext, "Weak password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(baseContext, "Weak password", Toast.LENGTH_LONG).show()
                     showProgress(false)
                 }
                 // if user enters wrong password.
@@ -326,7 +313,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 // phoneAutoCredential = PhoneAuthCredential()
                 updates = UserProfileChangeRequest.Builder().setDisplayName(nameStr).build()
                 mAuth!!.currentUser!!.updateProfile(updates!!).addOnCompleteListener(this, OnCompleteListener {
-                    var intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(baseContext, "Hello " + mAuth!!.currentUser!!.displayName, Toast.LENGTH_LONG).show()
                 })

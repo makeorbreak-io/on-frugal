@@ -22,7 +22,7 @@ class AccountFragment : Fragment() {
         setHasOptionsMenu(true)
         val toolbar = v.findViewById<Toolbar>(R.id.toolbar)
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance()
         toolbar.setTitle("Account")
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
@@ -41,14 +41,15 @@ class AccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             action_logout -> {
-                Toast.makeText(context, "Logging out", Toast.LENGTH_LONG)
+                Toast.makeText(context, "Logging out", Toast.LENGTH_LONG).show()
                 mAuth!!.signOut()
-                var intent = Intent(activity, LoginActivity::class.java)
+                val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
+                activity!!.finish()
                 return true
             }
             action_about -> {
-                var intent = Intent(activity, AboutActivity::class.java)
+                val intent = Intent(activity, AboutActivity::class.java)
                 startActivity(intent)
             }
         }
