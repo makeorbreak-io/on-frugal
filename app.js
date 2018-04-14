@@ -9,12 +9,14 @@ const fs = require('fs');
 
 const utils = require('./utils/utils.js');
 const db = require('./utils/database.js');
+const firebase = require('./utils/firebase.js');
 const api = require('./routes/api');
 const index = require('./routes/index');
 
 const app = express();
 
 db.connect();
+firebase.init();
 
 // app.use(favicon(path.join(__dirname, 'public','images','logo.jpg')));
 app.use(logger('dev'));
