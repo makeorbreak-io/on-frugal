@@ -5,11 +5,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <application>
+    <application android:fullBackupContent="true">
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
             android:name=".presentation.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter android:order="1">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -31,6 +31,23 @@
         <service
             android:name=".domain.services.LocationService"
             android:enabled="true" />
+
+        <!--<activity
+            android:name=".presentation.AccountFragment"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter android:order="1">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.m"
+                    android:pathPattern="/.*"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>-->
     </application>
 
 </manifest>

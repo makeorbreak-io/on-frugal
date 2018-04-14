@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation.searchList;
+package com.hackoholics.onfrugal.main.presentation.findoffer.searchList;
 
 import com.hackoholics.onfrugal.main.domain.model.BasicModel;
 

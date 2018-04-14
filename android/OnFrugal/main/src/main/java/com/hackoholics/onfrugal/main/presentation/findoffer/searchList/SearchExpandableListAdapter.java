@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation.searchList;
+package com.hackoholics.onfrugal.main.presentation.findoffer.searchList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

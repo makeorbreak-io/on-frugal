@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:name="com.hackoholics.onfrugal.main.presentation.map.FindOfferMapFragment"
+        android:name="com.hackoholics.onfrugal.main.presentation.findoffer.map.FindOfferMapFragment"
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

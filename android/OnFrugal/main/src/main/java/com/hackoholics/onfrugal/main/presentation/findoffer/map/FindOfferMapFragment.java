@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation.map;
+package com.hackoholics.onfrugal.main.presentation.findoffer.map;
 
 import android.os.Bundle;
 import android.util.Log;

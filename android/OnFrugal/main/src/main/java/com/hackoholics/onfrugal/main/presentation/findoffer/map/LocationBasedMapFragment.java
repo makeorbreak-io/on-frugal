@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation.map;
+package com.hackoholics.onfrugal.main.presentation.findoffer.map;
 
 import android.Manifest;
 import android.app.AlertDialog;

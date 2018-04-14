@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation;
+package com.hackoholics.onfrugal.main.presentation.findoffer;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -27,10 +27,10 @@ import com.hackoholics.onfrugal.main.data.OnlineSearchRepository;
 import com.hackoholics.onfrugal.main.domain.executor.impl.ThreadExecutor;
 import com.hackoholics.onfrugal.main.domain.interactors.SearchInteractorImpl;
 import com.hackoholics.onfrugal.main.domain.model.Search;
-import com.hackoholics.onfrugal.main.presentation.map.FindOfferMapFragment;
-import com.hackoholics.onfrugal.main.presentation.map.TabMapFragment;
-import com.hackoholics.onfrugal.main.presentation.searchList.ParentRow;
-import com.hackoholics.onfrugal.main.presentation.searchList.SearchExpandableListAdapter;
+import com.hackoholics.onfrugal.main.presentation.findoffer.map.FindOfferMapFragment;
+import com.hackoholics.onfrugal.main.presentation.findoffer.FindOfferMapTabFragment;
+import com.hackoholics.onfrugal.main.presentation.findoffer.searchList.ParentRow;
+import com.hackoholics.onfrugal.main.presentation.findoffer.searchList.SearchExpandableListAdapter;
 import com.hackoholics.onfrugal.main.threading.MainThreadImpl;
 
 import java.util.ArrayList;
@@ -47,8 +47,6 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
     private View mRootView;
     private Context mContext;
 
-    private FindOfferMapFragment poiMapFragment;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_find_offers, container, false);
@@ -59,7 +57,6 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
         mSearchView = mRootView.findViewById(R.id.sv);
         mSearchView.setOnSearchViewListener(this);
 
-        poiMapFragment = (FindOfferMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
         setHasOptionsMenu(true);
         getActivity().setTitle(null);
@@ -113,7 +110,7 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
                 case 0:
                     return new FindOfferListTabFragment();
                 case 1:
-                    return new TabMapFragment();
+                    return new FindOfferMapTabFragment();
                 default:
                     return null;
             }
@@ -143,7 +140,7 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
 
         };
 
-        LatLng latLng = poiMapFragment.getPosition();
+        LatLng latLng = new LatLng(0,0);
 
         SearchInteractorImpl searchInteractor = new SearchInteractorImpl(
                 ThreadExecutor.getInstance(),

@@ -8,12 +8,13 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.hackoholics.onfrugal.main.R
 import com.hackoholics.onfrugal.main.domain.services.LocationService
-import com.hackoholics.onfrugal.main.presentation.FindOfferMainFragment
+import com.hackoholics.onfrugal.main.presentation.findoffer.FindOfferMainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     val findOffers= FindOfferMainFragment()
     val myOffers= MyOffersFragment()
+    val account = AccountFragment()
     lateinit var fragmentManager: FragmentManager
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -30,7 +31,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_account-> {
-                Toast.makeText(this,R.string.title_profile, Toast.LENGTH_SHORT).show()
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.flContainer, account).addToBackStack(null).commit()
                 return@OnNavigationItemSelectedListener true
             }
         }

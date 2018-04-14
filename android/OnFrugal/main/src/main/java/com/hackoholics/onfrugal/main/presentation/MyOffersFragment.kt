@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hackoholics.onfrugal.main.R
+import com.hackoholics.onfrugal.main.presentation.findoffer.FindOfferListTabFragment
 
 class MyOffersFragment: Fragment() {
     lateinit var mRootView: View

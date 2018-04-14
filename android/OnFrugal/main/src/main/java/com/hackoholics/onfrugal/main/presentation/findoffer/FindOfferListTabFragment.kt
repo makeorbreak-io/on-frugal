@@ -1,4 +1,4 @@
-package com.hackoholics.onfrugal.main.presentation
+package com.hackoholics.onfrugal.main.presentation.findoffer
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableLayout
 import com.hackoholics.onfrugal.main.R
-import com.hackoholics.onfrugal.main.presentation.map.TabMapFragment
+import com.hackoholics.onfrugal.main.presentation.findoffer.FindOfferMapTabFragment
 
 class FindOfferListTabFragment: Fragment() {
 
