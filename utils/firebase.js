@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 
-const serviceAccount = require('./files/onfrugal-1523653506834-firebase-adminsdk-sjuy1-8f163ff365.json');
+const serviceAccount = require('../files/onfrugal-1523653506834-firebase-adminsdk-sjuy1-8f163ff365.json');
 
 function init() {
     admin.initializeApp({
