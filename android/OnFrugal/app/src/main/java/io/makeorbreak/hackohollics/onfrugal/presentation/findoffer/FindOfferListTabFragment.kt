@@ -11,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import io.makeorbreak.hackohollics.onfrugal.R
 import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer
+import io.makeorbreak.hackohollics.onfrugal.domain.model.User
 import io.makeorbreak.hackohollics.onfrugal.presentation.OfferAdapter
+import java.util.*
 
 class FindOfferListTabFragment: Fragment() {
 
@@ -33,6 +35,7 @@ class FindOfferListTabFragment: Fragment() {
         //Add line between each item
         mRecyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
+        startUpdate()
         return v
     }
 
@@ -41,12 +44,29 @@ class FindOfferListTabFragment: Fragment() {
             override fun run() {
                 //TODO GET list
 //                val list = RoomDatabase.instance.getDatabase(applicationContext).benchmarkDao().all
-//                updateBenchmarks(list)
+//                updateOffers(list)
+
+
+                val list = ArrayList<Offer>()
+                val user = User("0","John Doe", "johndoe@gmail.com", "919000000")
+
+                for (i in 0..20){
+
+                    @Suppress("DEPRECATION")
+                    list.add(Offer(i.toString(),
+                            "Offer "+i,
+                            user,
+                            getString(R.string.large_text),
+                            Date(2018,11,i),
+                            "Avenida dos Aliados",5,9.30F))
+                }
+
+                updateOffers(list)
             }
         })
     }
 
-    fun updateBenchmarks(benchmarks :List<Offer>){
+    fun updateOffers(benchmarks :List<Offer>){
 
         activity!!.runOnUiThread(object: Runnable {
             override fun run() {
