@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
+import android.widget.Toast
 import com.hackoholics.onfrugal.main.R
 
 class AccountFragment : Fragment() {
