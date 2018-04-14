@@ -47,7 +47,6 @@ function createCollections() {
 function search(searchQuery) {
     return new Promise((resolve, reject) => {
         let results = {offers: [], users: []};
-
         let deepIterate = function (obj, value) {
             for (let field in obj) {
                 if (obj[field] == value) {

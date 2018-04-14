@@ -1,21 +1,17 @@
 const express = require('express');
+const database = require('../utils/database.js');
 const router = express.Router();
 
 router.get('/', (req, res) => {
 
 });
 
-// search by location
-
-// search by user namec
-
-// search by event name
-
-// search by label
-
-// search by date
 router.get('/search/:searchParam', (req, res) => {
     console.log('param: ', req.params.searchParam);
+    database.search(req.params.searchParam).then(val => {
+        res.json(val);
+    });
+    /*
     res.json({
         name: 'Offer name',
         host: {
@@ -54,6 +50,7 @@ router.get('/search/:searchParam', (req, res) => {
             },
         ],
     });
+    */
 });
 
 // register user
@@ -69,34 +66,30 @@ router.post('/register', (req, res) => {
 router.post('/editProfile', (req, res) => {
     // @TODO need to check with duarte if he's sending all the json or is only sending a specific field
     
-    if (req.body.name.trim() === '') {
-        res.status(405).send('Name not allowed');
-    } else if (isNaN(req.body.age) || req.body.age.trim() === '') {
-        res.status(405).send('Age not allowed');
-    } else {
-        //
-        res.sendStatus(200);
-    }
 });
 // create offer
 router.post('/insertOffer', (req, res) => {
     // go to db with email of the user and see all its current offers
     // see if there's an event at the same time
+    database.createOffer(req.body).then();
     // if not, create it and ack
     res.sendStatus(201);
 });
 // edit event
 router.post('/editOffer', (req, res) => {
+
     // @TODO need to check with duarte if he's sending all the json or is only sending a specific field
 })
 // add user to event
 router.get('/addUser/:event/:idFirebase', (req, res) => {
     // check if user is already in the event
     // if not, add it and ack
+    database.addUserToEvent(req.params.idFirebase, req.params.event).then();
     res.sendStatus(200);
 });
 // allow user to event
 router.get('/allowUser/:event/:idFirebase', (req, res) => {
+    database.allowUserToEvent(req.params.idFirebase, req.params.event);
     res.sendStatus(200);
 });
 
