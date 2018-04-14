@@ -86,14 +86,60 @@ function search(searchQuery) {
     });
 }
 
-// @TODO need to check with duarte if he's sending all the json or is only sending a specific field
-function editOffer() {
+function getUser(idUser) {
+    return new Promise((resolve, reject) => db.collection('user').find({idFirebase: idUser})
+        .toArray((err, res) => {
+            if (err) {
+                console.log('Error getting user', err);
+                reject(err);
+                return;
+            }
+
+            resolve(res);
+        }));
+}
+
+function getOffersByUser(idUser) {
+    return new Promise((resolve, reject) =>
+        db.collection('offer').find(
+            {
+                $or: [
+                    {host: {idFirebase: idUser}},
+                    {accepted: {$elemMatch: {idFirebase: idUser}}},
+                    {candidates: {$elemMatch: {idFirebase: idUser}}},
+                ]
+            })
+            .toArray((err, res) => {
+                if (err) {
+                    console.log('Error getting offers by user', err);
+                    reject(err);
+                    return;
+                }
+
+                let results = {own: [], others: []};
+
+                res.forEach(elem => {
+                    let key = elem.host.idFirebase === idUser ? 'own' : 'others';
+                    results[key].push(elem);
+                });
+
+                resolve(res);
+            })
+    );
+}
+
+function editOffer(offer) {
     // call find and modify
+    return new Promise(((resolve, reject) => db.collection('offer').findAndModifyCallback({
+        // TODO check this id attribute
+        query: {_id: offer.id},
+        update: offer
+    }, () => resolve())));
 }
 
 function createOffer(offer) {
     return new Promise((resolve, reject) => db.collection('offer').insertOne(offer, (err, res) => {
-        if (err){
+        if (err) {
             console.log('Error inserting new offer', err);
             reject(err);
             return;
@@ -127,7 +173,7 @@ function allowUserToEvent(idUser, idOffer) {
 
 function createUser(user) {
     return new Promise((resolve, reject) => db.collection('user').insertOne(user, (err, res) => {
-        if (err){
+        if (err) {
             console.log('Error inserting new user', err);
             reject(err);
             return;
@@ -137,8 +183,12 @@ function createUser(user) {
     }));
 }
 
-function editUser() {
+function editUser(user) {
     // call find and modify
+    return new Promise(((resolve, reject) => db.collection('user').findAndModifyCallback({
+        query: {idFirebase: user.idFirebase},
+        update: user
+    }, () => resolve())));
 }
 
 module.exports = {
@@ -150,4 +200,6 @@ module.exports = {
     search,
     addUserToEvent,
     allowUserToEvent,
+    getOffersByUser,
+    getUser
 };
