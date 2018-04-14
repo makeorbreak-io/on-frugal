@@ -58,7 +58,7 @@ router.get('/search/:searchParam', (req, res) => {
 
 // register user
 router.post('/register', (req, res) => {
-    console.log(req.body);Z
+    console.log(req.headers.authorization);
     // insert into database
 
     // if ok, ack

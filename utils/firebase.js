@@ -10,12 +10,25 @@ function init() {
 }
 
 function verifyToken(idToken) {
-    admin.auth().verifyIdToken(idToken).then(
-        (decodedToken) => {
-            var uid = decodedToken.uid;
-        }).catch((err) => {
-            console.log(err);
+    return new Promise((resolve, reject) =>
+        admin.auth().verifyIdToken(idToken).then(
+            (decodedToken) => {
+                var uid = decodedToken.uid;
+                resolve(uid);
+            }).catch((err) => {
+                console.err(err);
+                reject(err);
+            })
+    );
+}
+
+function retrieveInfoByToken(idToken) {
+    return new Promise((resolve, reject) => verifyToken(idToken).then(val => {
+        admin.database().ref('/users/' + val).then((snapshot) => {
+            console.log(snapshot);
+            resolve(snapshot);
         });
+    }));
 }
 
 module.exports = {
