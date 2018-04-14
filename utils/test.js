@@ -1,17 +1,7 @@
-const db = require('./utils/database.js');
+const db = require('../utils/database.js');
+const async = require('async');
 
-function populateDB() {
-    await db.connect();
-
-    for (let user in users) {
-        await db.createUser(user);
-    }
-    for (let offer in offers) {
-        await db.createUser(offer);
-    }
-}
-
-let users = [{
+var users = [{
     idFirebase: 1,
     name: 'Name1',
     photo: 'URL photo',
@@ -62,8 +52,7 @@ let users = [{
     facebook: 'facebook.com/5',
 }]
 
-
-let offers = [{
+var offers = [{
     name: 'Offer1',
     host: {
         idFirebase: 1,
@@ -78,15 +67,15 @@ let offers = [{
     spots: 'Number of spots',
     accepted: [
         {
-            idFirebase: '2',
+            idFirebase: 2,
         },
     ],
     candidates: [
         {
-            idFirebase: '3',
+            idFirebase: 3,
         },
         {
-            idFirebase: '4',
+            idFirebase: 4,
         },
     ],
 },
@@ -105,15 +94,36 @@ let offers = [{
     spots: 'Number of spots',
     accepted: [
         {
-            idFirebase: '3',
+            idFirebase: 3,
         },
     ],
     candidates: [
         {
-            idFirebase: '2',
+            idFirebase: 2,
         },
         {
-            idFirebase: '5',
+            idFirebase: 5,
         },
     ],
-}]
+}];
+
+function populateDB() {
+    db.connect().then(val => {
+        async.each(users, (user, cb) => {
+            db.createUser(user).then(() => {
+                cb();
+            });
+        }, (err) => {
+            console.log('All users');
+        });
+        async.each(offers, (offer, cb) => {
+            db.createOffer(offer).then(() => {
+                cb();
+            });
+        }, (err) => {
+            console.log('All offers');
+        });
+    });
+}
+
+populateDB();

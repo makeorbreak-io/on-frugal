@@ -95,9 +95,10 @@ function createOffer(offer) {
     return new Promise((resolve, reject) => db.collection('offer').insertOne(offer, (err, res) => {
         if (err){
             console.log('Error inserting new offer', err);
-            reject();
+            reject(err);
             return;
         }
+        console.log('Success creating offer');
         resolve();
     }));
 
@@ -128,9 +129,10 @@ function createUser(user) {
     return new Promise((resolve, reject) => db.collection('user').insertOne(user, (err, res) => {
         if (err){
             console.log('Error inserting new user', err);
-            reject();
+            reject(err);
             return;
         }
+        console.log('Success creating user');
         resolve();
     }));
 }
