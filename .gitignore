@@ -8,4 +8,4 @@ error
 
 data
 
-files\*.json
+files/*.json
