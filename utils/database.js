@@ -45,8 +45,47 @@ function createCollections() {
 // Events Database API
 
 function search(searchQuery) {
+    return new Promise((resolve, reject) => {
+        let results = {offers: [], users: []};
 
-}   
+        let deepIterate = function (obj, value) {
+            for (let field in obj) {
+                if (obj[field] == value) {
+                    return true;
+                }
+                let found = false;
+                if (typeof obj[field] === 'object') {
+                    found = deepIterate(obj[field], value)
+                    if (found) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
+        // User
+        db.collection('user').find({
+            $where: () => {
+                return deepIterate(this, searchQuery)
+            }
+        }).toArray((err, userResults) => {
+            results.users = userResults;
+
+            // Offers
+            db.collection('offer').find({
+                $where: () => {
+                    return deepIterate(this, searchQuery)
+                }
+            }).toArray((err, offerResults) => {
+                results.offers = offerResults;
+
+                resolve(results);
+            });
+        });
+
+    });
+}
 
 // @TODO need to check with duarte if he's sending all the json or is only sending a specific field
 function editOffer() {
@@ -54,9 +93,15 @@ function editOffer() {
 }
 
 function createOffer(offer) {
-    db.collection('offer').insertOne(offer, (err, res) => {
-        if (err) console.log('Error inserting new offer', err);
-    });
+    return new Promise((resolve, reject) => db.collection('offer').insertOne(offer, (err, res) => {
+        if (err){
+            console.log('Error inserting new offer', err);
+            reject();
+            return;
+        }
+        resolve();
+    }));
+
 }
 
 function addUserToEvent(user, idOffer) {
@@ -70,9 +115,14 @@ function allowUserToEvent(idUser, idOffer) {
 // User Database API
 
 function createUser(user) {
-    db.collection('user').insertOne(user, (err, res) => {
-        if (err) console.log('Error inserting new offer', err);
-    });
+    return new Promise((resolve, reject) => db.collection('user').insertOne(user, (err, res) => {
+        if (err){
+            console.log('Error inserting new user', err);
+            reject();
+            return;
+        }
+        resolve();
+    }));
 }
 
 function editUser() {

@@ -14,7 +14,7 @@ const index = require('./routes/index');
 
 const app = express();
 
-db.connect().then();
+db.connect();
 
 // app.use(favicon(path.join(__dirname, 'public','images','logo.jpg')));
 app.use(logger('dev'));
