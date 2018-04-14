@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const bb = require('express-busboy');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const admin = require('firebase-admin');
 
+const serviceAccount = require("./files/onfrugal-1523653506834-firebase-adminsdk-sjuy1-8f163ff365.json");
 const utils = require('./utils/utils.js');
 const db = require('./utils/database.js');
 const api = require('./routes/api');
@@ -15,6 +17,12 @@ const index = require('./routes/index');
 const app = express();
 
 db.connect().then();
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://onfrugal-1523653506834.firebaseio.com"
+});
+
 
 // app.use(favicon(path.join(__dirname, 'public','images','logo.jpg')));
 app.use(logger('dev'));
