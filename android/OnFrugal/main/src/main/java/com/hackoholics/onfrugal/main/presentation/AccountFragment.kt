@@ -8,12 +8,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.hackoholics.onfrugal.main.R
-import kotlinx.android.synthetic.main.activity_scrolling.*
 
 class AccountFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.activity_scrolling, container, false)
+        val v = inflater.inflate(R.layout.fragment_account, container, false)
         setHasOptionsMenu(true)
         val toolbar = v.findViewById<Toolbar>(R.id.toolbar)
         toolbar.setTitle("Account")
