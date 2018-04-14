@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const admin = require('firebase-admin');
 
 router.get('/', (req, res) => {
 
@@ -59,7 +58,7 @@ router.get('/search/:searchParam', (req, res) => {
 
 // register user
 router.post('/register', (req, res) => {
-    console.log(req.body);
+    console.log(req.body);Z
     // insert into database
 
     // if ok, ack
@@ -69,12 +68,7 @@ router.post('/register', (req, res) => {
 // edit profile
 router.post('/editProfile', (req, res) => {
     // @TODO need to check with duarte if he's sending all the json or is only sending a specific field
-    admin.auth().verifyIdToken(idToken).then(
-        (decodedToken) => {
-            var uid = decodedToken.uid;
-        }).catch((err) => {
-            console.log(err);3
-        });
+    
     if (req.body.name.trim() === '') {
         res.status(405).send('Name not allowed');
     } else if (isNaN(req.body.age) || req.body.age.trim() === '') {
