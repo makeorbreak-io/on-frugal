@@ -123,4 +123,6 @@
     </string>
     <string name="name">Name</string>
     <string name="register_account">No account yet? Click Here</string>
+    <string name="no_account_button_text">No account yet? Click Here</string>
+    <string name="create_account_button_text">Already have an account? Click Here</string>
 </resources>

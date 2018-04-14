@@ -15,7 +15,7 @@ import io.makeorbreak.hackohollics.onfrugal.R.id.action_about
 import io.makeorbreak.hackohollics.onfrugal.R.id.action_logout
 
 class AccountFragment : Fragment() {
-    private var mAuth: FirebaseAuth? = null
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_account, container, false)
@@ -23,6 +23,7 @@ class AccountFragment : Fragment() {
         val toolbar = v.findViewById<Toolbar>(R.id.toolbar)
 
         mAuth = FirebaseAuth.getInstance()
+
         toolbar.setTitle("Account")
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
@@ -41,11 +42,13 @@ class AccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             action_logout -> {
+
                 Toast.makeText(context, "Logging out", Toast.LENGTH_LONG).show()
-                mAuth!!.signOut()
+                mAuth.signOut()
                 val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
                 activity!!.finish()
+
                 return true
             }
             action_about -> {

@@ -23,8 +23,8 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
+import android.util.Patterns
 import android.widget.Toast
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.*
 import io.makeorbreak.hackohollics.onfrugal.R
 
@@ -98,21 +98,21 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
     }
 
-    fun openFormDetails(v: View) {
+    fun openFormDetails() {
         if (link_signup.text.equals("Already have an account? Click Here")) {
             // close additional form label
             textInputPhoneNumber.visibility = View.GONE
             phoneNumber.visibility = View.GONE
             textInputName.visibility = View.GONE
             name.visibility = View.GONE
-            link_signup.text = "No account yet? Click Here"
+            link_signup.text = getString(R.string.no_account_button_text)
         } else {
             // open additional form label
             textInputPhoneNumber.visibility = View.VISIBLE
             phoneNumber.visibility = View.VISIBLE
             textInputName.visibility = View.VISIBLE
             name.visibility = View.VISIBLE
-            link_signup.text = "Already have an account? Click Here"
+            link_signup.text = getString(R.string.create_account_button_text)
         }
     }
 
@@ -131,7 +131,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         val emailStr = email.text.toString()
         val passwordStr = password.text.toString()
         val nameStr = name.text.toString()
-        val phoneStr = phoneNumber.text.toString()
+        phoneNumber.text.toString()
 
         var cancel = false
         var focusView: View? = null
@@ -165,7 +165,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(true)
             if (link_signup.text.equals("Already have an account? Click Here")) {
                 // register
-                register(emailStr, passwordStr, phoneStr, nameStr)
+                register(emailStr, passwordStr, nameStr)
             } else {
                 // login
                 login(emailStr, passwordStr)
@@ -174,8 +174,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
-        return email.contains("@")
+        val pattern = Patterns.EMAIL_ADDRESS
+        return pattern.matcher(email).matches()
     }
 
     /**
@@ -245,7 +245,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun login(emailStr: String, passwordStr: String) {
-        mAuth!!.signInWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
+        mAuth!!.signInWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener(this, { task ->
             if(!task.isSuccessful){
                 try
                 {
@@ -277,8 +277,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         })
     }
 
-    private fun register(emailStr: String, passwordStr: String, phoneStr: String, nameStr: String) {
-        mAuth!!.createUserWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
+    private fun register(emailStr: String, passwordStr: String, nameStr: String) {
+        mAuth!!.createUserWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener(this, { task ->
             if (!task.isSuccessful()) {
                 try
                 {
@@ -312,7 +312,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 // mAuth!!.currentUser!!.updatePhoneNumber()
                 // phoneAutoCredential = PhoneAuthCredential()
                 updates = UserProfileChangeRequest.Builder().setDisplayName(nameStr).build()
-                mAuth!!.currentUser!!.updateProfile(updates!!).addOnCompleteListener(this, OnCompleteListener {
+                mAuth!!.currentUser!!.updateProfile(updates!!).addOnCompleteListener(this, {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(baseContext, "Hello " + mAuth!!.currentUser!!.displayName, Toast.LENGTH_LONG).show()
