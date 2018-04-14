@@ -5,29 +5,41 @@ var db = null;
 
 // Returns a promise
 function connect() {
-    return MongoClient.connect(url, (err, dbArg) => {
+    return new Promise((res, rej) => MongoClient.connect(url, (err, dbArg) => {
         assert.equal(null, err);
         console.log("Connected successfully to server");
         db = dbArg.db('onFrugalDatabase');
-        createCollections();
-    });
+
+        db.listCollections().toArray((err, collectInfos) => {
+            if (collectInfos.length === 0)
+                createCollections().then(() => res());
+            else
+                res();
+        });
+    }));
 }
 
+// Returns a promise
 function createCollections() {
-    db.createCollection('offer', (err, res) => {
+    return new Promise((resolve, reject) => db.createCollection('offer', (err, res) => {
         if (err) {
             console.log('error creating offers collection', err);
+            reject(err);
             return;
         }
         console.log('User collection successfully created');
+
         db.createCollection('user', (err, res) => {
             if (err) {
                 console.log('error creating users collection', err);
+                reject(err);
                 return;
             }
             console.log('User collection successfully created');
+
+            resolve();
         });
-    });
+    }));
 }
 
 // Events Database API
