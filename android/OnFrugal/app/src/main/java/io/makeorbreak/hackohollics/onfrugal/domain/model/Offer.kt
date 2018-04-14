@@ -1,6 +1,7 @@
 package io.makeorbreak.hackohollics.onfrugal.domain.model
 
-import android.location.Location
+import android.os.Parcel
+import android.os.Parcelable
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
@@ -13,9 +14,8 @@ class Offer(val id: String,
             var endDate: Date,
             var location: String,
             var spots: Int,
-            var price: Float): Serializable {
+            var price: Float): Serializable{
 
     var candidates= ArrayList<User>()
     var accepted= ArrayList<User>()
-
 }

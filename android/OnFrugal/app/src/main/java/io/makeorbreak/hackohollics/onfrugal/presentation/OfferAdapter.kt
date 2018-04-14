@@ -20,10 +20,9 @@ class OfferAdapter (var offers: Array<Offer>): RecyclerView.Adapter<OfferAdapter
         lateinit var offer: Offer
         override fun onClick(v: View?) {
             if (v != null) {
-                //TODO Launch Offer Activity
-//                val intent = Intent(v.context, OfferActivity::class.java)
-//                intent.putExtra("BENCHMARK", offer)
-//                v.context.startActivity(intent)
+                val intent = Intent(v.context, OfferActivity::class.java)
+                intent.putExtra("OFFER", offer)
+                v.context.startActivity(intent)
             }
         }
 
