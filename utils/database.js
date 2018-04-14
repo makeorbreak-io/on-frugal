@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const distance = require('euclidean-distance');
 const url = 'mongodb://localhost:27017';
 var db = null;
 
@@ -84,6 +85,22 @@ function search(searchQuery) {
         });
 
     });
+}
+
+function getOffersSortedByDistance(latitude, longitude) {
+    return new Promise(((resolve, reject) => db.collection('offer').find()
+        .toArray((err, docs) => {
+            docs = docs.sort((doc1, doc2) => {
+                let currentPosition = [latitude, longitude];
+
+                let a = [doc1.location.latitude, doc1.location.longitude];
+                let b = [doc2.location.latitude, doc2.location.longitude];
+
+                return distance(currentPosition, a) - distance(currentPosition, b);
+            });
+
+            resolve(docs);
+        })))
 }
 
 function getUser(idUser) {
@@ -201,5 +218,6 @@ module.exports = {
     addUserToEvent,
     allowUserToEvent,
     getOffersByUser,
-    getUser
+    getUser,
+    getOffersSortedByDistance
 };

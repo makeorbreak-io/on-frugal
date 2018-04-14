@@ -20,7 +20,10 @@ router.get('/search/:searchParam', (req, res) => {
             email: 'Host mail',
             phoneNumber: 'Host phone number',
         },
-        location: 'Offer location',
+        location: {
+            latitude: ,
+            longitude
+        }
         time: 'Offer time',
         description: 'Offer description',
         price: 'Price that the person registring is going to pay',
