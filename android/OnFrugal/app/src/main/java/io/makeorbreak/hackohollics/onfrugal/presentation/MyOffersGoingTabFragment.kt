@@ -9,10 +9,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import io.makeorbreak.hackohollics.onfrugal.R
 import io.makeorbreak.hackohollics.onfrugal.data.local.UserRepository
+import io.makeorbreak.hackohollics.onfrugal.data.remote.impl.MyAttendingOffersRepository
+import io.makeorbreak.hackohollics.onfrugal.domain.executor.impl.ThreadExecutor
+import io.makeorbreak.hackohollics.onfrugal.domain.interactors.MyOffersInteractorImpl
 import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer
 import io.makeorbreak.hackohollics.onfrugal.domain.model.User
+import io.makeorbreak.hackohollics.onfrugal.threading.MainThreadImpl
 import kotlinx.android.synthetic.main.fragment_tab_my_offers.*
 import java.util.*
 
@@ -43,7 +48,23 @@ class MyOffersGoingTabFragment : Fragment() {
     }
 
     private fun startUpdate() {
-        AsyncTask.execute(object: Runnable {
+        val callback = object: MyOffersInteractorImpl.Callback {
+            override fun onSuccess(pastOffers: List<Offer>, ongoingOffers: List<Offer>) {
+                updateOffers(ongoingOffers, pastOffers)
+            }
+
+            override fun onError(error: String?) {
+                Toast.makeText(getContext(),getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        val interactor = MyOffersInteractorImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(),
+                callback,MyAttendingOffersRepository(context))
+
+        interactor.execute()
+
+        /*AsyncTask.execute(object: Runnable {
             override fun run() {
                 //TODO GET list
 //                val list = RoomDatabase.instance.getDatabase(applicationContext).benchmarkDao().all
@@ -100,7 +121,7 @@ class MyOffersGoingTabFragment : Fragment() {
 
                 updateOffers(ongoingList, pastList)
             }
-        })
+        })*/
     }
 
     fun updateOffers(ongoingOffers: List<Offer>,pastOffers :List<Offer>){

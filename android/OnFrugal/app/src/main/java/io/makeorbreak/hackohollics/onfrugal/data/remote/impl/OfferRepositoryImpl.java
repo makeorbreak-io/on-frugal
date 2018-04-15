@@ -29,8 +29,6 @@ import static io.makeorbreak.hackohollics.onfrugal.data.remote.base.Converters.t
 
 public class OfferRepositoryImpl extends AbstractRepository implements OfferRepository {
 
-
-
     private static final String TAG = SearchRepositoryImpl.class.getSimpleName();
     private static final String API_SEARCH_URL = ServerUrl.getUrl() + ServerUrl.API + "/offer/";
     private static final String JSON_OFFER = "offers";
@@ -58,6 +56,54 @@ public class OfferRepositoryImpl extends AbstractRepository implements OfferRepo
         String url = API_SEARCH_URL + "location/";
 
         url = url.concat(lat + "/" + lng);
+
+        Log.d(TAG, url);
+        RequestFuture<JSONArray> future = RequestFuture.newFuture();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, future, future);
+        queue.add(request);
+        try{
+            return getOffersFromRequest(future);
+        } catch (InterruptedException | ExecutionException | JSONException | TimeoutException e) {
+            try {
+                handleError(e);
+            } catch (RemoteDataException e1) {
+                e1.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    @NotNull
+    @Override
+    public List<Offer> getOffersHosting() {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = mRequestQueue;
+
+        String url = API_SEARCH_URL + "hosting/";
+
+        Log.d(TAG, url);
+        RequestFuture<JSONArray> future = RequestFuture.newFuture();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, future, future);
+        queue.add(request);
+        try{
+            return getOffersFromRequest(future);
+        } catch (InterruptedException | ExecutionException | JSONException | TimeoutException e) {
+            try {
+                handleError(e);
+            } catch (RemoteDataException e1) {
+                e1.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    @NotNull
+    @Override
+    public List<Offer> getOffersAttending() {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = mRequestQueue;
+
+        String url = API_SEARCH_URL + "attending/";
 
         Log.d(TAG, url);
         RequestFuture<JSONArray> future = RequestFuture.newFuture();
