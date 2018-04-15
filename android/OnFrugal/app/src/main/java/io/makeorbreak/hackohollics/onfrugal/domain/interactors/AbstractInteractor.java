@@ -16,7 +16,7 @@ import io.makeorbreak.hackohollics.onfrugal.domain.executor.MainThread;
 public abstract class AbstractInteractor implements Interactor {
 
     private Executor mThreadExecutor;
-    private MainThread mMainThread;
+    MainThread mMainThread;
 
     private volatile boolean mIsCanceled;
     private volatile boolean mIsRunning;

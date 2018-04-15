@@ -18,8 +18,10 @@ public class SearchInteractorImpl extends AbstractInteractor{
     private double mLatitude;
     private double mLongitude;
 
-    // TODO: 13-04-2018 implement callback
     public interface Callback{
+        void onSuccess(Search search);
+
+        void onError(String error);
 
     }
 
@@ -44,9 +46,29 @@ public class SearchInteractorImpl extends AbstractInteractor{
             Log.d(TAG, "Start search");
             searchModel = mRepository.search(mSearchedQuery, mLatitude, mLongitude);
             Log.d(TAG, "Finished search");
-//            notifySuccess(searchModel);
+            notifySuccess(searchModel);
         } catch (Exception e) {
-//            notifyError(e.getCode(), e.getErrorMessage());
+            notifyError(e.getClass().toString(), e.getMessage());
         }
+    }
+
+    void notifySuccess(final Search search){
+        mMainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onSuccess(search);
+            }
+        });
+
+    }
+
+    void notifyError(final String code, final String errorMessage){
+        mMainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onError(code + " - " +errorMessage);
+            }
+        });
+
     }
 }

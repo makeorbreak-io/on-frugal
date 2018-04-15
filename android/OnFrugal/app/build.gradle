@@ -14,13 +14,25 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        def protocol = "http://"
+        def host = "206.189.21.154"
+        def port = ":80"
+        buildConfigField "String", "API_HOSTNAME",  "\"" + protocol + host + port + "\""
     }
     buildTypes {
         release {
+
+            buildConfigField "String", "API_HOSTNAME", "\"" + "https://iwashere.fe.up.pt" + "\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+        }
     }
+
 }
 
 dependencies {
@@ -40,6 +52,11 @@ dependencies {
 
     implementation 'com.github.claudiodegio:MsvSearch:1.0.0'
     implementation 'com.github.medyo:android-about-page:1.2.2'
+
+    implementation 'com.android.volley:volley:1.1.0'
+
+
+    implementation 'com.google.code.gson:gson:2.8.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

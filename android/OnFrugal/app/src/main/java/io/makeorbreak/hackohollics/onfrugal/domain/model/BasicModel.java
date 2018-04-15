@@ -3,27 +3,27 @@ package io.makeorbreak.hackohollics.onfrugal.domain.model;
 import java.io.Serializable;
 
 public class BasicModel implements Serializable{
-    protected String id;
+    protected String uid;
     protected String name;
 
     public BasicModel() {
     }
 
     public BasicModel(String id, String name) {
-        this.id = id;
+        this.uid = id;
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public void setName(String name) {
@@ -32,12 +32,12 @@ public class BasicModel implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) || ((User) obj).getUid().equals(this.id);
+        return super.equals(obj) || ((User) obj).getUid().equals(this.uid);
 
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        return getUid().hashCode();
     }
 }

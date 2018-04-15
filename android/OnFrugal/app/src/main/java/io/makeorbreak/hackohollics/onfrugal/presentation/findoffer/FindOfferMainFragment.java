@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.claudiodegio.msv.BaseMaterialSearchView;
 import com.claudiodegio.msv.OnSearchViewListener;
@@ -27,7 +28,10 @@ import io.makeorbreak.hackohollics.onfrugal.R;
 import io.makeorbreak.hackohollics.onfrugal.data.OnlineSearchRepository;
 import io.makeorbreak.hackohollics.onfrugal.domain.executor.impl.ThreadExecutor;
 import io.makeorbreak.hackohollics.onfrugal.domain.interactors.SearchInteractorImpl;
+import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer;
 import io.makeorbreak.hackohollics.onfrugal.domain.model.Search;
+import io.makeorbreak.hackohollics.onfrugal.domain.model.User;
+import io.makeorbreak.hackohollics.onfrugal.presentation.findoffer.searchList.ChildRow;
 import io.makeorbreak.hackohollics.onfrugal.presentation.findoffer.searchList.ParentRow;
 import io.makeorbreak.hackohollics.onfrugal.presentation.findoffer.searchList.SearchExpandableListAdapter;
 import io.makeorbreak.hackohollics.onfrugal.threading.MainThreadImpl;
@@ -138,6 +142,15 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
 
         SearchInteractorImpl.Callback callBack = new SearchInteractorImpl.Callback() {
 
+            @Override
+            public void onSuccess(Search search) {
+                onSearchPoiFetch(search);
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(getContext(),getString(R.string.error_connection),Toast.LENGTH_SHORT).show();
+            }
         };
 
         LatLng latLng = new LatLng(0,0);
@@ -158,45 +171,31 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
 
         mCategoriesList = new ArrayList<>();
 
-        // TODO: 13-04-2018 Adapt for search with users, offers, etc...
-        /*if (!searchModel.getPois().isEmpty()) {
+        if (!searchModel.getOffers().isEmpty()) {
             ArrayList<ChildRow> childRowsPois = new ArrayList<>();
-            PoiModel model;
+            Offer model;
             ParentRow parentRow;
-            for (int i = 0; i < searchModel.getPois().size(); i++) {
-                model = searchModel.getPois().get(i);
+            for (int i = 0; i < searchModel.getOffers().size(); i++) {
+                model = searchModel.getOffers().get(i);
                 Log.d(TAG, "POI MODEL SEARCH: " + model.getName());
-                childRowsPois.add(new ChildRow(R.drawable.map_marker, model));
+                childRowsPois.add(new ChildRow(R.drawable.ic_local_offer_black_24dp, model));
             }
             parentRow = new ParentRow("Points of Interest", childRowsPois);
             mCategoriesList.add(parentRow);
         }
 
-        if (!searchModel.getRoutes().isEmpty()) {
+        if (!searchModel.getUsers().isEmpty()) {
             ArrayList<ChildRow> childRowsRoutes = new ArrayList<>();
-            RouteModel model;
+            User model;
             ParentRow parentRow;
-            for (int i = 0; i < searchModel.getRoutes().size(); i++) {
-                model = searchModel.getRoutes().get(i);
+            for (int i = 0; i < searchModel.getUsers().size(); i++) {
+                model = searchModel.getUsers().get(i);
                 Log.d(TAG, "ROUTE MODEL SEARCH: " + model.getName());
-                childRowsRoutes.add(new ChildRow(R.drawable.walk, model));
+                childRowsRoutes.add(new ChildRow(R.drawable.ic_person_black_24dp, model));
             }
             parentRow = new ParentRow("Routes", childRowsRoutes);
             mCategoriesList.add(parentRow);
         }
-
-        if (!searchModel.getTags().isEmpty()) {
-            ArrayList<ChildRow> childRowsTags = new ArrayList<>();
-            TagModel model;
-            ParentRow parentRow;
-            for (int i = 0; i < searchModel.getTags().size(); i++) {
-                model = searchModel.getTags().get(i);
-                Log.d(TAG, "TAG MODEL SEARCH: " + model.getName());
-                childRowsTags.add(new ChildRow(R.drawable.pound, model));
-            }
-            parentRow = new ParentRow("Tags", childRowsTags);
-            mCategoriesList.add(parentRow);
-        }*/
 
         displaySearchResults(mRootView);
         expandCategories();

@@ -7,14 +7,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class Offer(val id: String,
-            var name: String,
+class Offer(id: String,name: String,
             var host: User,
             var description: String,
             var endDate: Date,
             var location: String,
             var spots: Int,
-            var price: Float): Serializable{
+            var price: Float): Serializable, BasicModel(id,name) {
 
     var candidates= ArrayList<User>()
     var accepted= ArrayList<User>()
