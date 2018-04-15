@@ -33,12 +33,9 @@ class UserActivity : AppCompatActivity() {
         }
 
         email_container.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.setType("*/*")
-            intent.putExtra(Intent.EXTRA_EMAIL, user.email)
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent)
-            }
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.setData(Uri.parse("mailto:${user.email}"))
+            startActivity(Intent.createChooser(intent,"Send mail..."))
         }
     }
 
