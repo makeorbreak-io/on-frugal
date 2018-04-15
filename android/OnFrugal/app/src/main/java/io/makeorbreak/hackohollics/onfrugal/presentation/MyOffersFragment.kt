@@ -29,7 +29,7 @@ class MyOffersFragment: Fragment() {
         tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-
+                viewPager.setCurrentItem(tab!!.position);
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -44,6 +44,8 @@ class MyOffersFragment: Fragment() {
 
         return mRootView
     }
+
+
 
     inner class PagerAdapter(fm: FragmentManager, private val mNumOfTabs: Int) : FragmentStatePagerAdapter(fm) {
 

@@ -38,7 +38,6 @@
             android:name=".presentation.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".presentation.UserActivity"
             android:label="@string/app_name"
@@ -61,6 +60,7 @@
             android:name=".presentation.OfferActivity"
             android:label="@string/title_activity_offer"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".presentation.CreateOffer"></activity>
     </application>
 
 </manifest>
