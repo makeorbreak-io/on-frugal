@@ -25,7 +25,6 @@ import com.claudiodegio.msv.OnSearchViewListener;
 import com.google.android.gms.maps.model.LatLng;
 
 import io.makeorbreak.hackohollics.onfrugal.R;
-import io.makeorbreak.hackohollics.onfrugal.data.OnlineSearchRepository;
 import io.makeorbreak.hackohollics.onfrugal.data.remote.impl.SearchRepositoryImpl;
 import io.makeorbreak.hackohollics.onfrugal.domain.executor.impl.ThreadExecutor;
 import io.makeorbreak.hackohollics.onfrugal.domain.interactors.SearchInteractorImpl;
@@ -57,9 +56,6 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
 
         Toolbar myToolbar = mRootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(myToolbar);
-
-
-
 
         TabLayout tabLayout = mRootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("List"));
@@ -109,13 +105,19 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
             this.mNumOfTabs = NumOfTabs;
         }
 
+        double lat =41.1483846;
+        double lng = -8.6129637;
+
 
         @Override
         public Fragment getItem(int position) {
 
             switch (position) {
                 case 0:
-                    return new FindOfferListTabFragment();
+                    FindOfferListTabFragment fragment = new FindOfferListTabFragment();
+                    fragment.setLat(lat); fragment.setLng(lng);
+
+                    return fragment;
                 case 1:
                     return new FindOfferMapTabFragment();
                 default:
@@ -154,18 +156,16 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
             }
         };
 
-        LatLng latLng = new LatLng(0,0);
-
         SearchInteractorImpl searchInteractor = new SearchInteractorImpl(
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 callBack,
                 new SearchRepositoryImpl(Objects.requireNonNull(getContext())),
-                query, latLng.latitude, latLng.longitude
+                query
         );
         searchInteractor.execute();
 
-        Log.d(TAG, "Searched Query: " + query + " Lat: " + latLng.latitude + " Lng: " + latLng.longitude);
+        Log.d(TAG, "Searched Query: " + query);
     }
 
     private void onSearchPoiFetch(Search searchModel) {

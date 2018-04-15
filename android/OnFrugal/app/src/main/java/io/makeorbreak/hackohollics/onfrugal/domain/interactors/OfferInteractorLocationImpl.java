@@ -2,59 +2,62 @@ package io.makeorbreak.hackohollics.onfrugal.domain.interactors;
 
 import android.util.Log;
 
+import java.util.List;
+
 import io.makeorbreak.hackohollics.onfrugal.domain.executor.Executor;
 import io.makeorbreak.hackohollics.onfrugal.domain.executor.MainThread;
-
+import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer;
 import io.makeorbreak.hackohollics.onfrugal.domain.model.Search;
+import io.makeorbreak.hackohollics.onfrugal.domain.repository.OfferRepository;
 import io.makeorbreak.hackohollics.onfrugal.domain.repository.SearchRepository;
 
-public class SearchInteractorImpl extends AbstractInteractor{
-    private final static String TAG = SearchInteractorImpl.class.getSimpleName();
+public class OfferInteractorLocationImpl extends AbstractInteractor{
+    private final static String TAG = OfferInteractorLocationImpl.class.getSimpleName();
     private final Callback callback;
 
-    private SearchRepository mRepository;
-    private String mSearchedQuery;
+    private OfferRepository mRepository;
     private double mLatitude;
     private double mLongitude;
 
     public interface Callback{
-        void onSuccess(Search search);
+        void onSuccess(List<Offer> offers);
 
         void onError(String error);
 
     }
 
-    public SearchInteractorImpl(Executor threadExecutor,
-                                MainThread mainThread,
-                                Callback callback,
-                                SearchRepository mRepository,
-                                String mSearchedQuery) {
+    public OfferInteractorLocationImpl(Executor threadExecutor,
+                                       MainThread mainThread,
+                                       Callback callback,
+                                       OfferRepository mRepository,
+                                       double lat, double lng) {
         super(threadExecutor, mainThread);
         this.mRepository = mRepository;
-        this.mSearchedQuery = mSearchedQuery;
         this.callback = callback;
+        this.mLatitude = lat;
+        this.mLongitude = lng;
     }
 
     @Override
     public void run() {
         try {
-            Search searchModel;
+            List<Offer> offers;
             Log.d(TAG, "Start search");
-            searchModel = mRepository.search(mSearchedQuery);
+            offers = mRepository.getOffers(mLatitude,mLongitude);
             Log.d(TAG, "Finished search");
-            if(searchModel == null)
+            if(offers == null)
                 throw new Exception("Search cameback null");
-            notifySuccess(searchModel);
+            notifySuccess(offers);
         } catch (Exception e) {
             notifyError(e.getClass().toString(), e.getMessage());
         }
     }
 
-    void notifySuccess(final Search search){
+    void notifySuccess(final List<Offer> offers){
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                callback.onSuccess(search);
+                callback.onSuccess(offers);
             }
         });
 

@@ -9,14 +9,23 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import io.makeorbreak.hackohollics.onfrugal.R
+import io.makeorbreak.hackohollics.onfrugal.data.remote.impl.OfferRepositoryImpl
+import io.makeorbreak.hackohollics.onfrugal.domain.executor.MainThread
+import io.makeorbreak.hackohollics.onfrugal.domain.executor.impl.ThreadExecutor
+import io.makeorbreak.hackohollics.onfrugal.domain.interactors.OfferInteractorLocationImpl
 import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer
 import io.makeorbreak.hackohollics.onfrugal.domain.model.User
 import io.makeorbreak.hackohollics.onfrugal.presentation.OfferAdapter
+import io.makeorbreak.hackohollics.onfrugal.threading.MainThreadImpl
 import java.util.*
 import kotlin.collections.ArrayList
 
 class FindOfferListTabFragment: Fragment() {
+
+    var lat = 41.1483846
+    var lng = -8.6129637
 
     lateinit var mRecyclerView: RecyclerView
     lateinit var mAdapter: RecyclerView.Adapter<OfferAdapter.ViewHolder>
@@ -41,7 +50,27 @@ class FindOfferListTabFragment: Fragment() {
     }
 
     private fun startUpdate() {
-        AsyncTask.execute(object: Runnable {
+        
+        val callback = object: OfferInteractorLocationImpl.Callback {
+            override fun onSuccess(offers: List<Offer>) {
+                updateOffers(offers)
+            }
+
+            override fun onError(error: String?) {
+                Toast.makeText(getContext(),getString(R.string.error_connection),Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        val interactor = OfferInteractorLocationImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(),
+                callback,
+                OfferRepositoryImpl(context),
+                lat,lng)
+
+        interactor.run()
+        
+        
+        /*AsyncTask.execute(object: Runnable {
             override fun run() {
                 //TODO GET list
 //                val list = RoomDatabase.instance.getDatabase(applicationContext).benchmarkDao().all
@@ -77,7 +106,7 @@ class FindOfferListTabFragment: Fragment() {
 
                 updateOffers(list)
             }
-        })
+        })*/
     }
 
     fun updateOffers(offers :List<Offer>){

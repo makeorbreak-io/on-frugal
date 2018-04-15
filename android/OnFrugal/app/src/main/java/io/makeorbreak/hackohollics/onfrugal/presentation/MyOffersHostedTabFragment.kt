@@ -112,10 +112,10 @@ class MyOffersHostedTabFragment : Fragment() {
         activity!!.runOnUiThread(object: Runnable {
             override fun run() {
                 val adapter1 = OfferAdapter(ongoingOffers.toTypedArray())
-                offers_ongoing.adapter = adapter1
+                offerOngoingRecyclerView.adapter = adapter1
 
-                val adapter2 = OfferAdapter(ongoingOffers.toTypedArray())
-                offers_ongoing.adapter = adapter2
+                val adapter2 = OfferAdapter(pastOffers.toTypedArray())
+                offerPastRecyclerView.adapter = adapter2
             }
 
         })

@@ -18,7 +18,7 @@ android {
 
         def protocol = "http://"
         def host = "206.189.21.154"
-        def port = ":80"
+        def port = ":3000"
         buildConfigField "String", "API_HOSTNAME",  "\"" + protocol + host + port + "\""
     }
     buildTypes {
