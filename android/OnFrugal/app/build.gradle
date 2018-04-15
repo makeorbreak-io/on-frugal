@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "io.makeorbreak.hackohollics.onfrugal"
@@ -29,12 +30,16 @@ dependencies {
     api 'com.android.support:design:27.1.1'
     api 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    api 'com.google.firebase:firebase-auth:15.0.0'
     testImplementation 'junit:junit:4.12'
 
-    implementation 'com.google.android.gms:play-services-maps:12.0.1'
-    implementation 'com.google.android.gms:play-services-location:12.0.1'
+    implementation 'com.google.android.gms:play-services-maps:15.0.0'
+    implementation 'com.google.android.gms:play-services-location:15.0.0'
     //noinspection GradleDynamicVersion
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
 
     implementation 'com.github.claudiodegio:MsvSearch:1.0.0'
+    implementation 'com.github.medyo:android-about-page:1.2.2'
 }
+
+apply plugin: 'com.google.gms.google-services'
