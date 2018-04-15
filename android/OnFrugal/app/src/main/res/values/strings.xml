@@ -137,4 +137,5 @@
     <string name="no_account_button_text">No account yet? Click Here</string>
     <string name="create_account_button_text">Already have an account? Click Here</string>
     <string name="accepted">Accepted</string>
+    <string name="home">Home</string>
 </resources>

@@ -20,10 +20,9 @@ class UserAdapter (var users: Array<User>): RecyclerView.Adapter<UserAdapter.Vie
         lateinit var user: User
         override fun onClick(v: View?) {
             if (v != null) {
-                //TODO Launch UserActivity
-//                val intent = Intent(v.context, UserActivity::class.java)
-//                intent.putExtra("USER", offer)
-//                v.context.startActivity(intent)
+                val intent = Intent(v.context, UserActivity::class.java)
+                intent.putExtra("USER", user)
+                v.context.startActivity(intent)
             }
         }
 

@@ -93,6 +93,16 @@ class OfferActivity : AppCompatActivity() {
         host_box.findViewById<TextView>(R.id.textUserName).text = getString(R.string.placeholder_host) + " " + offer.host.name
         host_box.findViewById<RatingBar>(R.id.userRatingBar).rating = 3F
 
+        host_box.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                if (v != null) {
+                    val intent = Intent(v.context, UserActivity::class.java)
+                    intent.putExtra("USER", offer.host)
+                    v.context.startActivity(intent)
+                }
+        }
+        })
+
         offerSpots.text = (offer.spots - offer.getNumberAccepted()).toString()
         offerAccepted.text =offer.getNumberAccepted().toString()
         offerCandidates.text =offer.getNumberCandidates().toString()
