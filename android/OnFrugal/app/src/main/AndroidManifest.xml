@@ -60,7 +60,7 @@
             android:name=".presentation.OfferActivity"
             android:label="@string/title_activity_offer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".presentation.CreateOffer"></activity>
+        <activity android:name=".presentation.CreateOfferActivity"></activity>
     </application>
 
 </manifest>

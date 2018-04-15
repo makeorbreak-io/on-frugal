@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import io.makeorbreak.hackohollics.onfrugal.R
 
-class CreateOffer : AppCompatActivity() {
+class CreateOfferActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

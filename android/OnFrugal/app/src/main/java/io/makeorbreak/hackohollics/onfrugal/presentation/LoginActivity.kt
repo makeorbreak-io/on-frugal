@@ -309,8 +309,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             } else {
                 showProgress(false)
 
-                // mAuth!!.currentUser!!.updatePhoneNumber()
-                // phoneAutoCredential = PhoneAuthCredential()
+//                mAuth!!.currentUser!!.updatePhoneNumber()
+//                phoneAutoCredential = PhoneAuthCredential()
                 updates = UserProfileChangeRequest.Builder().setDisplayName(nameStr).build()
                 mAuth!!.currentUser!!.updateProfile(updates!!).addOnCompleteListener(this, {
                     val intent = Intent(this, MainActivity::class.java)
