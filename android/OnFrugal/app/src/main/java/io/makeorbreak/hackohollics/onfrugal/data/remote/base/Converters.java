@@ -11,7 +11,7 @@ import io.makeorbreak.hackohollics.onfrugal.domain.model.User;
 public class Converters {
 
     public static Offer toOffer(JSONObject object) throws JSONException {
-        String uid = object.getString("uid");
+        String uid = object.getString("_id");
         String name = object.getString("name");
         User host = toUser(object.getJSONObject("host"));
         String description = object.getString("description");
@@ -32,7 +32,7 @@ public class Converters {
     }
 
     public static User toUser(JSONObject object) throws JSONException{
-        String uid = object.getString("uid");
+        String uid = object.getString("idFirebase");
         String name = object.getString("name");
 
         String email = "";

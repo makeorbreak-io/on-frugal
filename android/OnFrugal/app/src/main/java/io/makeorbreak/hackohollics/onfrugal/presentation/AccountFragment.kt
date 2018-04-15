@@ -8,11 +8,16 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import io.makeorbreak.hackohollics.onfrugal.R
 import io.makeorbreak.hackohollics.onfrugal.R.id.action_about
 import io.makeorbreak.hackohollics.onfrugal.R.id.action_logout
+import io.makeorbreak.hackohollics.onfrugal.data.local.UserRepository
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.content_scrolling.*
+import org.w3c.dom.Text
 
 class AccountFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
@@ -29,9 +34,12 @@ class AccountFragment : Fragment() {
 
         v.findViewById<FloatingActionButton>(R.id.fab)
             .setOnClickListener { view ->
-                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
+                Toast.makeText(context, "Not implemented yet :(", Toast.LENGTH_SHORT).show()
             }
+
+        v.findViewById<TextView>(R.id.accountEmail).text = UserRepository.getInstance().getEmail()
+        v.findViewById<TextView>(R.id.accountId).text = UserRepository.getInstance().getUID()
+
         return v
     }
 

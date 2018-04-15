@@ -173,28 +173,28 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
         mCategoriesList = new ArrayList<>();
 
         if (!searchModel.getOffers().isEmpty()) {
-            ArrayList<ChildRow> childRowsPois = new ArrayList<>();
-            Offer model;
+            ArrayList<ChildRow> childRowsOffers = new ArrayList<>();
+            Offer offer;
             ParentRow parentRow;
             for (int i = 0; i < searchModel.getOffers().size(); i++) {
-                model = searchModel.getOffers().get(i);
-                Log.d(TAG, "POI MODEL SEARCH: " + model.getName());
-                childRowsPois.add(new ChildRow(R.drawable.ic_local_offer_black_24dp, model));
+                offer = searchModel.getOffers().get(i);
+                Log.d(TAG, "POI MODEL SEARCH: " + offer.getName());
+                childRowsOffers.add(new ChildRow(R.drawable.ic_local_offer_black_24dp, offer));
             }
-            parentRow = new ParentRow("Points of Interest", childRowsPois);
+            parentRow = new ParentRow("Offers", childRowsOffers);
             mCategoriesList.add(parentRow);
         }
 
         if (!searchModel.getUsers().isEmpty()) {
-            ArrayList<ChildRow> childRowsRoutes = new ArrayList<>();
-            User model;
+            ArrayList<ChildRow> childRowsUsers = new ArrayList<>();
+            User user;
             ParentRow parentRow;
             for (int i = 0; i < searchModel.getUsers().size(); i++) {
-                model = searchModel.getUsers().get(i);
-                Log.d(TAG, "ROUTE MODEL SEARCH: " + model.getName());
-                childRowsRoutes.add(new ChildRow(R.drawable.ic_person_black_24dp, model));
+                user = searchModel.getUsers().get(i);
+                Log.d(TAG, "ROUTE MODEL SEARCH: " + user.getName());
+                childRowsUsers.add(new ChildRow(R.drawable.ic_person_black_24dp, user));
             }
-            parentRow = new ParentRow("Routes", childRowsRoutes);
+            parentRow = new ParentRow("Users", childRowsUsers);
             mCategoriesList.add(parentRow);
         }
 

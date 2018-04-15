@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/parent_text"
-        android:paddingStart="35sp"
+        android:paddingLeft="35sp"
         android:paddingTop="12sp"
         android:paddingBottom="6sp"
         android:text="@string/hint_search"

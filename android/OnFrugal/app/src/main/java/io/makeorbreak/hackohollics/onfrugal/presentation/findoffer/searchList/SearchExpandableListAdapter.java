@@ -2,6 +2,7 @@ package io.makeorbreak.hackohollics.onfrugal.presentation.findoffer.searchList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.makeorbreak.hackohollics.onfrugal.R;
+import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer;
+import io.makeorbreak.hackohollics.onfrugal.domain.model.User;
+import io.makeorbreak.hackohollics.onfrugal.presentation.OfferActivity;
+import io.makeorbreak.hackohollics.onfrugal.presentation.UserActivity;
 
 public class SearchExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -100,19 +105,16 @@ public class SearchExpandableListAdapter extends BaseExpandableListAdapter {
         childText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Launch Activity
-                /*if (childRow.getBasicModel() instanceof PoiModel) {
-                    Intent intent = new Intent(mContext, PoiDetailActivity.class);
-                    intent.putExtra("poi", (PoiModel) childRow.getBasicModel());
+                if (childRow.getBasicModel() instanceof Offer) {
+                    Intent intent = new Intent(mContext, OfferActivity.class);
+                    intent.putExtra("OFFER", childRow.getBasicModel());
                     mContext.startActivity(intent);
-                } else if (childRow.getBasicModel() instanceof RouteModel) {
-                    Intent intent = new Intent(mContext, RouteDetailActivity.class);
-                    intent.putExtra(RouteDetailActivity.EXTRA_ROUTE, (RouteModel) childRow.getBasicModel());
+                } else if (childRow.getBasicModel() instanceof User) {
+                    Intent intent = new Intent(mContext, UserActivity.class);
+                    intent.putExtra("USER",  childRow.getBasicModel());
                     mContext.startActivity(intent);
 
-                } else if (childRow.getBasicModel() instanceof TagModel) {
-                    //TODO 01.05.2017 Start Tag Activity
-                }*/
+                }
             }
         });
 

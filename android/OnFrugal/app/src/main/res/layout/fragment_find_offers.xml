@@ -29,17 +29,9 @@
     <com.claudiodegio.msv.MaterialSearchView
         android:id="@+id/sv"
         android:elevation="5dip"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <include
-        layout="@layout/content_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar_container" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
@@ -56,4 +48,11 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/tab_layout"/>
+
+    <include
+        layout="@layout/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar_container" />
 </RelativeLayout>
