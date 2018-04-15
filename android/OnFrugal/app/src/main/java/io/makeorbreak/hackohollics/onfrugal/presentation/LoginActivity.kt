@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
     }
 
-    fun openFormDetails() {
+    fun openFormDetails(@Suppress("UNUSED_PARAMETER") v:View?) {
         if (link_signup.text.equals("Already have an account? Click Here")) {
             // close additional form label
             textInputPhoneNumber.visibility = View.GONE

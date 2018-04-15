@@ -24,7 +24,7 @@ class AccountFragment : Fragment() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        toolbar.setTitle("Account")
+        toolbar.setTitle(mAuth.currentUser!!.displayName.toString())
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         v.findViewById<FloatingActionButton>(R.id.fab)
