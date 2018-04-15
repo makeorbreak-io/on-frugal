@@ -72,6 +72,9 @@ class OfferActivity : AppCompatActivity() {
         //Add line between each item
         candidates_recycler_view.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
+        accepted_recycler_view.layoutManager = LinearLayoutManager(this)
+        accepted_recycler_view.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
         if(FirebaseAuth.getInstance().uid == offer.host.uid)
             showHostSection()
             updateCandidates(offer.candidates)

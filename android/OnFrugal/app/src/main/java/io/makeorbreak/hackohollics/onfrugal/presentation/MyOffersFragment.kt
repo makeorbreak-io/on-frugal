@@ -18,8 +18,8 @@ class MyOffersFragment: Fragment() {
         mRootView = inflater.inflate(R.layout.fragment_my_offers, container, false)
 
         val tabLayout: TabLayout = mRootView.findViewById(R.id.tab_layout)
-        tabLayout.addTab(tabLayout.newTab().setText("Hosting"))
         tabLayout.addTab(tabLayout.newTab().setText("Attending"))
+        tabLayout.addTab(tabLayout.newTab().setText("Hosting"))
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL)
 
         val viewPager: ViewPager = mRootView.findViewById(R.id.pager)
@@ -50,8 +50,8 @@ class MyOffersFragment: Fragment() {
         override fun getItem(position: Int):Fragment  {
             when (position) {
                 //TODO change this
-                0 -> return FindOfferListTabFragment()
-                1 -> return FindOfferListTabFragment()
+                0 -> return MyOffersGoingTabFragment()
+                1 -> return MyOffersHostedTabFragment()
                 else -> throw Exception()
             }
         }

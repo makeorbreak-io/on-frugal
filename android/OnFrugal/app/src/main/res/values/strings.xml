@@ -138,4 +138,6 @@
     <string name="create_account_button_text">Already have an account? Click Here</string>
     <string name="accepted">Accepted</string>
     <string name="home">Home</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="past">Past</string>
 </resources>
