@@ -14,8 +14,6 @@ public class SearchInteractorImpl extends AbstractInteractor{
 
     private SearchRepository mRepository;
     private String mSearchedQuery;
-    private double mLatitude;
-    private double mLongitude;
 
     public interface Callback{
         void onSuccess(Search search);

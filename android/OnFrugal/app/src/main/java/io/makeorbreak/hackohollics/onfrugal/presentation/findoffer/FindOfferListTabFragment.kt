@@ -57,7 +57,7 @@ class FindOfferListTabFragment: Fragment() {
             }
 
             override fun onError(error: String?) {
-                Toast.makeText(getContext(),getString(R.string.error_connection),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,getString(R.string.error_connection),Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -67,7 +67,7 @@ class FindOfferListTabFragment: Fragment() {
                 OfferRepositoryImpl(context),
                 lat,lng)
 
-        interactor.run()
+        interactor.execute()
         
         
         /*AsyncTask.execute(object: Runnable {
