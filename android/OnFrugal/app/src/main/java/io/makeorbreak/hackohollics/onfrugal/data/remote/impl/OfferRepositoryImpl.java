@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +25,7 @@ import io.makeorbreak.hackohollics.onfrugal.data.remote.base.ServerUrl;
 import io.makeorbreak.hackohollics.onfrugal.data.remote.exceptions.RemoteDataException;
 import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer;
 import io.makeorbreak.hackohollics.onfrugal.domain.repository.OfferRepository;
+import io.makeorbreak.hackohollics.onfrugal.domain.repository.UserRepository;
 
 import static io.makeorbreak.hackohollics.onfrugal.data.remote.base.Converters.toOffer;
 
@@ -73,20 +75,20 @@ public class OfferRepositoryImpl extends AbstractRepository implements OfferRepo
         }
     }
 
-    @NotNull
-    @Override
-    public List<Offer> getOffersHosting() {
+
+
+    public List<Offer> getMyOffers(String arrayLabel){
         // Instantiate the RequestQueue.
         RequestQueue queue = mRequestQueue;
 
-        String url = API_SEARCH_URL + "hosting/";
+        String url = API_SEARCH_URL + "user/"+ io.makeorbreak.hackohollics.onfrugal.data.local.UserRepository.getInstance().getUID();
 
         Log.d(TAG, url);
-        RequestFuture<JSONArray> future = RequestFuture.newFuture();
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, future, future);
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, future, future);
         queue.add(request);
         try{
-            return getOffersFromRequest(future);
+            return getOffersFromRequest(future, arrayLabel);
         } catch (InterruptedException | ExecutionException | JSONException | TimeoutException e) {
             try {
                 handleError(e);
@@ -99,26 +101,23 @@ public class OfferRepositoryImpl extends AbstractRepository implements OfferRepo
 
     @NotNull
     @Override
+    public List<Offer> getOffersHosting() {
+        return getMyOffers("own");
+    }
+
+    @NotNull
+    @Override
     public List<Offer> getOffersAttending() {
-        // Instantiate the RequestQueue.
-        RequestQueue queue = mRequestQueue;
+        return getMyOffers("others");
+    }
 
-        String url = API_SEARCH_URL + "attending/";
+    @Nullable
+    List<Offer> getOffersFromRequest(RequestFuture<JSONObject> future,String arrayLabel) throws InterruptedException, ExecutionException, TimeoutException, JSONException {
+        JSONObject response = future.get(ServerUrl.TIMEOUT, ServerUrl.TIMEOUT_TIME_UNIT); // this will block
+        System.out.println(TAG + ": " + String.valueOf(response));
 
-        Log.d(TAG, url);
-        RequestFuture<JSONArray> future = RequestFuture.newFuture();
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, future, future);
-        queue.add(request);
-        try{
-            return getOffersFromRequest(future);
-        } catch (InterruptedException | ExecutionException | JSONException | TimeoutException e) {
-            try {
-                handleError(e);
-            } catch (RemoteDataException e1) {
-                e1.printStackTrace();
-            }
-            return null;
-        }
+
+        return getArrayListOfOffers(response.getJSONArray(arrayLabel));
     }
 
     @Nullable
