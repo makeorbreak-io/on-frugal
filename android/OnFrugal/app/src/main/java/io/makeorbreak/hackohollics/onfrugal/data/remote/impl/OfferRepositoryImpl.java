@@ -102,13 +102,13 @@ public class OfferRepositoryImpl extends AbstractRepository implements OfferRepo
     @NotNull
     @Override
     public List<Offer> getOffersHosting() {
-        return getMyOffers("hosting");
+        return getMyOffers("own");
     }
 
     @NotNull
     @Override
     public List<Offer> getOffersAttending() {
-        return getMyOffers("attending");
+        return getMyOffers("others");
     }
 
     @Nullable
