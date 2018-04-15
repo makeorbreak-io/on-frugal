@@ -32,7 +32,7 @@ public class BasicModel implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) || ((User) obj).getId().equals(this.id);
+        return super.equals(obj) || ((User) obj).getUid().equals(this.id);
 
     }
 

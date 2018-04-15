@@ -18,4 +18,12 @@ class Offer(val id: String,
 
     var candidates= ArrayList<User>()
     var accepted= ArrayList<User>()
+
+    fun getNumberCandidates(): Int {
+        return candidates.size
+    }
+
+    fun getNumberAccepted(): Int{
+        return accepted.size
+    }
 }
