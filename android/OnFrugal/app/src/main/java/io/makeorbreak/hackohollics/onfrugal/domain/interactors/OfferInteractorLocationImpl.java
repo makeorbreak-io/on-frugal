@@ -44,7 +44,8 @@ public class OfferInteractorLocationImpl extends AbstractInteractor{
             List<Offer> offers;
             Log.d(TAG, "Start search");
             offers = mRepository.getOffers(mLatitude,mLongitude);
-            Log.d(TAG, "Finished search");
+            Log.d(TAG, "Finished Interactor by Location");
+            Log.d(TAG, offers.toString());
             if(offers == null)
                 throw new Exception("Search cameback null");
             notifySuccess(offers);

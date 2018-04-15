@@ -25,4 +25,10 @@ class Offer(id: String,name: String,
     fun getNumberAccepted(): Int{
         return accepted.size
     }
+
+    override fun toString(): String {
+        return "Offer(uid=$uid, name=$name, host=$host, description='$description', endDate=$endDate, location='$location', spots=$spots, price=$price, candidates=$candidates, accepted=$accepted)"
+    }
+
+
 }

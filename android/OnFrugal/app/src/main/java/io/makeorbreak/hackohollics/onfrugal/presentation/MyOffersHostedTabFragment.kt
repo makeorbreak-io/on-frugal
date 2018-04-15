@@ -69,7 +69,7 @@ class MyOffersHostedTabFragment : Fragment() {
 
         interactor.execute()
 
-        /*AsyncTask.execute(object: Runnable {
+        AsyncTask.execute(object: Runnable {
             override fun run() {
                 //TODO GET list
 //                val list = RoomDatabase.instance.getDatabase(applicationContext).benchmarkDao().all
@@ -126,7 +126,7 @@ class MyOffersHostedTabFragment : Fragment() {
 
                 updateOffers(ongoingList, pastList)
             }
-        })*/
+        })
     }
 
     fun updateOffers(ongoingOffers: List<Offer>,pastOffers :List<Offer>){
