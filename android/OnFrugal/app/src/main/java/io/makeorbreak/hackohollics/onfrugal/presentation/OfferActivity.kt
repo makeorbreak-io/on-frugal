@@ -1,6 +1,8 @@
 package io.makeorbreak.hackohollics.onfrugal.presentation
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.widget.SwipeRefreshLayout
@@ -8,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.RatingBar
@@ -78,6 +81,14 @@ class OfferActivity : AppCompatActivity() {
     private fun updateOfferDetails() {
         offerDescription.setText(offer.description)
         offerAddress.text = offer.location
+        offerAddress.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v:View) {
+                val uri = "geo:" + "?q=" + offer.location
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                startActivity(Intent.createChooser(intent, "Select an application"))
+            }
+        })
+
         offerEndDate.text = offer.endDate.toString()
         host_box.findViewById<TextView>(R.id.textUserName).text = getString(R.string.placeholder_host) + " " + offer.host.name
         host_box.findViewById<RatingBar>(R.id.userRatingBar).rating = 3F
