@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
@@ -27,6 +29,8 @@
     <com.claudiodegio.msv.MaterialSearchView
         android:id="@+id/sv"
         android:elevation="5dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -43,7 +47,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_container"
         android:background="?attr/colorPrimaryDark"
-        android:elevation="3dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         />

@@ -53,15 +53,8 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
         Toolbar myToolbar = mRootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(myToolbar);
 
-        mSearchView = mRootView.findViewById(R.id.sv);
-        mSearchView.setOnSearchViewListener(this);
 
 
-        setHasOptionsMenu(true);
-        getActivity().setTitle(null);
-        mCategoriesList = new ArrayList<>();
-        displaySearchResults(mRootView);
-        expandCategories();
 
         TabLayout tabLayout = mRootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("List"));
@@ -89,6 +82,16 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
 
             }
         });
+
+
+        mSearchView = mRootView.findViewById(R.id.sv);
+        mSearchView.setOnSearchViewListener(this);
+
+        setHasOptionsMenu(true);
+        getActivity().setTitle(null);
+        mCategoriesList = new ArrayList<>();
+        displaySearchResults(mRootView);
+        expandCategories();
 
         return mRootView;
     }
@@ -128,8 +131,6 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item = menu.findItem(R.id.action_search);
         mSearchView.setMenuItem(item);
-
-
 
     }
 
