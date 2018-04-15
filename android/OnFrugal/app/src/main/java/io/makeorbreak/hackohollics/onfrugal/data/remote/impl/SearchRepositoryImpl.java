@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ import io.makeorbreak.hackohollics.onfrugal.domain.model.Search;
 import io.makeorbreak.hackohollics.onfrugal.domain.model.User;
 import io.makeorbreak.hackohollics.onfrugal.domain.repository.SearchRepository;
 
-public abstract class SearchRepositoryImpl extends AbstractRepository implements SearchRepository {
+public class SearchRepositoryImpl extends AbstractRepository implements SearchRepository {
 
     public static final String TAG = SearchRepositoryImpl.class.getSimpleName();
     private static final String API_SEARCH_URL = ServerUrl.getUrl() + ServerUrl.API + ServerUrl.SEARCH + "?query=";
@@ -149,4 +150,9 @@ public abstract class SearchRepositoryImpl extends AbstractRepository implements
 
     }
 
+    @NotNull
+    @Override
+    public Search search(@NotNull String query) {
+        return search(query,0,0);
+    }
 }

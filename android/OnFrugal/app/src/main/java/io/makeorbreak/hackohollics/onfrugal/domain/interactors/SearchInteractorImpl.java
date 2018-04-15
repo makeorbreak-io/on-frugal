@@ -28,7 +28,7 @@ public class SearchInteractorImpl extends AbstractInteractor{
     public SearchInteractorImpl(Executor threadExecutor,
                                 MainThread mainThread,
                                 Callback callback,
-                                OnlineSearchRepository mRepository,
+                                SearchRepository mRepository,
                                 String mSearchedQuery,
                                 double mLatitude, double mLongitude) {
         super(threadExecutor, mainThread);

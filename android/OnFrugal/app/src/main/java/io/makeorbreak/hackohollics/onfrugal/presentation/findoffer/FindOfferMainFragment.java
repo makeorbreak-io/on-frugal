@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import io.makeorbreak.hackohollics.onfrugal.R;
 import io.makeorbreak.hackohollics.onfrugal.data.OnlineSearchRepository;
+import io.makeorbreak.hackohollics.onfrugal.data.remote.impl.SearchRepositoryImpl;
 import io.makeorbreak.hackohollics.onfrugal.domain.executor.impl.ThreadExecutor;
 import io.makeorbreak.hackohollics.onfrugal.domain.interactors.SearchInteractorImpl;
 import io.makeorbreak.hackohollics.onfrugal.domain.model.Offer;
@@ -159,7 +160,7 @@ public class FindOfferMainFragment extends Fragment implements OnSearchViewListe
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 callBack,
-                new OnlineSearchRepository(Objects.requireNonNull(getContext())),
+                new SearchRepositoryImpl(Objects.requireNonNull(getContext())),
                 query, latLng.latitude, latLng.longitude
         );
         searchInteractor.execute();
