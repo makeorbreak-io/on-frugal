@@ -1,5 +1,7 @@
 package io.makeorbreak.hackohollics.onfrugal.domain.model
 
-class User(var id: String, var name: String, var email: String, var phoneNumber: String) {
+import java.io.Serializable
+
+class User(var id: String, var name: String, var email: String, var phoneNumber: String): Serializable {
 
 }
