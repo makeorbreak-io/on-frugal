@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/phone_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -56,25 +57,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@id/ivContactItem1"
                 android:layout_toRightOf="@id/ivContactItem1"
-                android:text="Home"
+                android:text="@string/home"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#727272"
-                tools:ignore="HardcodedText,RtlHardcoded" />
-
-            <ToggleButton
-                android:id="@+id/chkState1"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:background="@drawable/toggle_selector"
-                android:checked="true"
-                android:padding="6dp"
-                android:textOff=""
-                android:textOn=""
                 tools:ignore="RtlHardcoded" />
 
         </RelativeLayout>
@@ -82,6 +67,7 @@
         <include layout="@layout/item_divider" />
 
         <RelativeLayout
+            android:id="@+id/email_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -106,9 +92,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem3"
-                android:layout_toLeftOf="@+id/chkState3"
                 android:layout_toRightOf="@id/ivContactItem3"
-                android:layout_toStartOf="@+id/chkState3"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="chintan@letsnurture.com"
@@ -128,22 +112,6 @@
                 android:text="@string/home"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#727272"
-                tools:ignore="RtlHardcoded" />
-
-            <ToggleButton
-                android:id="@+id/chkState3"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:background="@drawable/toggle_selector"
-                android:checked="true"
-                android:padding="6dp"
-                android:textOff=""
-                android:textOn=""
                 tools:ignore="RtlHardcoded" />
 
         </RelativeLayout>
@@ -175,12 +143,10 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem5"
-                android:layout_toLeftOf="@+id/chkState5"
                 android:layout_toRightOf="@id/ivContactItem5"
-                android:layout_toStartOf="@+id/chkState5"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="202 Park Street, Los Angeles"
+                android:text="Avenida dos Aliados, Porto"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#212121"
                 tools:ignore="HardcodedText,RtlHardcoded" />
@@ -199,59 +165,9 @@
                 android:textColor="#727272"
                 tools:ignore="RtlHardcoded" />
 
-            <ToggleButton
-                android:id="@+id/chkState5"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:background="@drawable/toggle_selector"
-                android:checked="true"
-                android:padding="6dp"
-                android:textOff=""
-                android:textOn=""
-                tools:ignore="RtlHardcoded" />
-
         </RelativeLayout>
 
-        <include layout="@layout/item_divider" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send SMS" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:text="Call" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:text="Email" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:text="Remove Contact" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
