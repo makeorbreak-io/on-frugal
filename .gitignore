@@ -1,0 +1,11 @@
+# Dependencies
+node_modules
+
+# Visual Studio Code
+.vscode
+
+error
+
+data
+
+files/*.json
