@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "io.makeorbreak.hackohollics.onfrugal"
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        def protocol = "http://"
+        def host = "206.189.21.154"
+        def port = ":3000"
+        buildConfigField "String", "API_HOSTNAME", "\"" + protocol + host + port + "\""
+    }
+    buildTypes {
+        release {
+
+            buildConfigField "String", "API_HOSTNAME", "\"" + "https://iwashere.fe.up.pt" + "\""
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    api 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.android.support:design:27.1.1'
+    api 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    api 'com.google.firebase:firebase-auth:15.0.0'
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'com.google.android.gms:play-services-maps:15.0.0'
+    implementation 'com.google.android.gms:play-services-location:15.0.0'
+    //noinspection GradleDynamicVersion
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+
+    implementation 'com.github.claudiodegio:MsvSearch:1.0.0'
+    implementation 'com.github.medyo:android-about-page:1.2.2'
+
+    implementation 'com.android.volley:volley:1.1.0'
+
+
+    implementation 'com.google.code.gson:gson:2.8.2'
+}
+
+apply plugin: 'com.google.gms.google-services'

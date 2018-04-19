@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "166225113173",
+    "firebase_url": "https://onfrugal-1523653506834.firebaseio.com",
+    "project_id": "onfrugal-1523653506834",
+    "storage_bucket": "onfrugal-1523653506834.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166225113173:android:57e9283b31f07bc9",
+        "android_client_info": {
+          "package_name": "io.makeorbreak.hackohollics.onfrugal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166225113173-3q5iesmflqa50meflrblhsad8e1sgvc7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.makeorbreak.hackohollics.onfrugal",
+            "certificate_hash": "e9936fbb4aba28d890130ba6eb7332b47fdec546"
+          }
+        },
+        {
+          "client_id": "166225113173-skfnt40ft53gs6lkcds73c1cncggf5vf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6-41sPSn8jol8xGOYR3ho4rDfEa3t_zY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166225113173-skfnt40ft53gs6lkcds73c1cncggf5vf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

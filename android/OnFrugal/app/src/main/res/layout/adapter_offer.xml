@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:focusable="true">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:scaleType="fitXY"
+        android:layout_height="60dp"
+        android:background="@drawable/ic_local_offer_black_24dp"
+        android:id="@+id/image"
+        android:contentDescription="Image of either the user that created or the the offer"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/offer_name"
+        android:id="@+id/textOfferName"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/image"
+        android:layout_toStartOf="@+id/textPrice"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/price"
+        android:id="@+id/textPrice"
+        android:textColor="@color/colorAccent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/host"
+        android:id="@+id/textHostName"
+        android:layout_marginStart="5dp"
+        android:layout_below="@id/textOfferName"
+        android:layout_toEndOf="@id/image"
+        android:textColor="#666"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/end_date"
+        android:id="@+id/textDate"
+        android:layout_marginStart="5dp"
+        android:layout_below="@id/textHostName"
+        android:layout_toEndOf="@id/image"
+        android:textColor="#666"/>
+
+</RelativeLayout>
